@@ -1,0 +1,8 @@
+# Pycharm setting files
+.idea
+
+# for Mac
+.DS_Store
+
+# Autoenv
+.env
