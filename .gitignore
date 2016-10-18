@@ -1,6 +1,9 @@
 # Pycharm setting files
 .idea
 
+# Python cache files
+__pycache__/
+
 # for Mac
 .DS_Store
 
