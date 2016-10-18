@@ -121,4 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = 'accounts/login/'
+LOGOUT_URL = 'accounts/logout/'
+LOGIN_REDIRECT_URL = '/home'
+
 AUTH_USER_MODEL = 'accounts.InvestUser'

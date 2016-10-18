@@ -13,13 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from invest_house import views as root_views
+from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    # Logout를 하면 /home URl에 연결하고싶었습니다.
+    url(r'^accounts/logout/$', logout, {'next_page':'/home'}, name='logout'),
+    url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^home/$', root_views.home, name='home'),
-    
 ]
