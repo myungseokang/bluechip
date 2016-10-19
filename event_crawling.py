@@ -1,11 +1,11 @@
 from bs4 import BeautifulSoup
 import requests
 import lxml
+import time
 
 def all_event():
     page = 0
     url = "http://finance.daum.net/quote/marketvalue.daum"
-
     event_set = []
     while(1):
         page += 1
@@ -28,19 +28,25 @@ def all_event():
                 html.find('a', {"href":"javascript:getPage(\'"+str(page+1)+"\');"}).text
         except:
             break
-
-        return event_set
+    return event_set
 
 def graph_url(code):
+    """
+    종목에 대한 그래프 url은 똑같은듯함.
+    """
     code = '005930'
     url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'
     html_doc = requests.get(url, params={'code':code})
     html = BeautifulSoup(html_doc.text, 'lxml')
-
     graphs = html.find('div', {'id':'stockGraph'}).find_all('img')
     graph_img = []
     for graph in graphs:
         src = graph.get('src')
         graph_img.append(src)
-
     return graph_img
+
+def time_quote(code):
+    now = time.localtime()
+    time_index = "%d%d%d%d%d" %(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min) # 년도 월 일 시 분
+    url = "http://finance.naver.com/item/sise_time.nhn?code="+code+"&thistime="+time_index
+    return url
