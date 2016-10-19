@@ -54,3 +54,20 @@ def time_quote(code):
 def day_quote(code):
     url = "http://finance.naver.com/item/sise_day.nhn?code="+code
     return url
+
+def stock_data(code):
+    url = "http://finance.naver.com/item/sise.nhn"
+    html_doc = requests.get(url, params={'code':code})
+    html = BeautifulSoup(html_doc.text, 'lxml')
+    stock_html = html.tbody.find_all('tr')
+    stock_datas = []
+    for stock_data in stock_html:
+        stock_datas.append({})
+        if stock_data.find('td', {'bgcolor':'#E1E1E1'}):
+            continue
+        th = stock_data.find_all('th')
+        td = stock_data.find_all('td')
+        stock_datas[len(stock_datas)-1] = {'name':th[0].text,'quote':td[0].text.replace('\t', '').replace('\n', '')}
+        stock_datas.append({})
+        stock_datas[len(stock_datas)-1] = {'name':th[1].text,'quote':td[1].text.replace('\t', '').replace('\n', '')}
+    return stock_datas
