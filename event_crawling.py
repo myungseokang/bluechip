@@ -50,3 +50,7 @@ def time_quote(code):
     time_index = "%d%d%d%d%d" %(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min) # 년도 월 일 시 분
     url = "http://finance.naver.com/item/sise_time.nhn?code="+code+"&thistime="+time_index
     return url
+
+def day_quote(code):
+    url = "http://finance.naver.com/item/sise_day.nhn?code="+code
+    return url
