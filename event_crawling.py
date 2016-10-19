@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import lxml
 
-def event_crawling():
+def all_event():
     page = 0
     url = "http://finance.daum.net/quote/marketvalue.daum"
 
