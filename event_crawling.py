@@ -59,18 +59,16 @@ def stock_data(code):
     """
     ex code = 005930
     """
-    url = "http://finance.naver.com/item/sise.nhn"
+    url = "http://finance.daum.net/item/main.daum"
     html_doc = requests.get(url, params={'code':code})
     html = BeautifulSoup(html_doc.text, 'lxml')
-    stock_html = html.tbody.find_all('tr')
-    stock_datas = []
-    for stock_data in stock_html:
-        if stock_data.find('td', {'bgcolor':'#E1E1E1'}):
-            continue
-        stock_datas.append({})
-        th = stock_data.find_all('th')
-        td = stock_data.find_all('td')
-        stock_datas[len(stock_datas)-1] = {'name':th[0].text,'quote':td[0].text.replace('\t', '').replace('\n', '')}
-        stock_datas.append({})
-        stock_datas[len(stock_datas)-1] = {'name':th[1].text,'quote':td[1].text.replace('\t', '').replace('\n', '')}
+    stock_html = html.find('div', {'id':'stockContent'}).find_all('dl')
+    stock_datas=[]
+    for stock in stock_html:
+        name = stock.dt.text
+        quote = stock.dd.text.replace('\t', '').replace('\n', '')
+        if (name=='전일' or name=='고가' or name=='저가' or name=='시가' or name=='상한가' or name=='하한가'):
+            stock_datas.append({'name':name, 'quote':quote})
+            if (name=='하한가'):
+                break
     return stock_datas
