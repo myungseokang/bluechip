@@ -43,6 +43,7 @@ def graph_url(code):
     for graph in graphs:
         src = graph.get('src')
         graph_img.append(src)
+    graph_img.pop()
     return graph_img
 
 def time_quote(code):
