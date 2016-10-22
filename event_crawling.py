@@ -3,49 +3,35 @@ import requests
 import lxml
 import time
 
+
 def business():
     """
-    반환 : [{'business_name':업종 이름, 'event':종목 이름, 'code':종목코드, 'price':종목 현재가, 'change':등락률 }, ....]
-    기타 업종 제외.
+    반환 : [{'business':업종 이름, 'title':종목 이름, 'code':종목코드, 'price':종목 현재가, 'change':등락률:소수로 형변환 }, ....]
     """
-    base_url="http://finance.daum.net/quote/upjong_sub.daum?stype=P"
-    html_doc = requests.get(base_url)
+    url="http://finance.daum.net/quote/all.daum?nil_profile=stockprice&nil_menu=siseleftmenu23"
+    html_doc = requests.get(url)
     html = BeautifulSoup(html_doc.text, 'lxml')
-    business_html = html.find('table', {'id':'bizBody1'}).find_all('tr')
-    event_set = []
-    for business in business_html:
-        try:
-            name = business.find('td', {'class':'txt'}).text
-            number = business.find('td', {'class':'txt'}).a.get('href')[-2:]
-        except:
-            continue
-        page = 0
-        while(1):
-            page += 1
-            url = "http://finance.daum.net/quote/upjong_detail_sub.daum?stype=P&col=pchgrate&order=desc"
-            html_doc = requests.get(url, params={'seccode':number,'page':page})
-            html = BeautifulSoup(html_doc.text, 'lxml')
-            events_html = html.find_all('tr')
-            for event_html in events_html:
-                try:
-                    event = event_html.find('td', {'class':'txt'}).text
-                    code = event_html.find('td', {'class':'txt'}).a.get('href')[-6:]
-                    price = event_html.find_all('td', {'class':'cUp'})[0].text
-                    change = event_html.find_all('td', {'class':'cUp'})[1].text
-                except:
-                    continue
-                else:
-                    event_set.append({'business_name':name, 'event':event, 'code':code, 'price':price, 'change':change})
+    table_tag = html.find_all('table', {'class':'gTable'})
+    h4_tag = html.find_all('h4', {'class':'fl_le'})
+    business = []
+    for i in range(len(h4_tag)):
+        business_name = h4_tag[i].text.split('|')[0]
+        stock_html = table_tag[i].find_all('tr')
+        for stocks in stock_html:
             try:
-                if page%10 == 0:
-                        html.find('span', {'class':'jumpNext'}).a.text
-                elif page%10 == 1:
-                        html.find('a', {"href":"javascript:goPage(\'"+str(page+1)+"\');"}).text
-                else:
-                    html.find('a', {"href":"javascript:goPage(\'"+str(page+1)+"\');"}).text
+                error = stocks.find('td',{'class':'txt'}).txt
             except:
-                break
-        return event_set
+                continue
+            stock = stocks.find_all('td')
+            txt = stocks.find_all('td',{'class':'txt'})
+            code = txt[0].a.get('href')[-6:]
+            business.append({'business':business_name, 'title':stock[0].text, 'price':stock[1].text.replace(',',''), 'change':float(stock[2].text.replace('%', '')), 'code':code})
+            try:
+                code = txt[1].a.get('href')[-6:]
+                business.append({'business':business_name, 'title':stock[3].text, 'price':stock[4].text.replace(',',''), 'change':float(stock[5].text.replace('%','')), 'code':code})
+            except:
+                continue
+        return business
 
 def graph_url(code):
     """
