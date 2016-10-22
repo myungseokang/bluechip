@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from invest_house import views as root_views
+from .views import Home
 from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # Logout를 하면 /home URl에 연결하고싶었습니다.
-    url(r'^accounts/logout/$', logout, {'next_page':'/home'}, name='logout'),
+    url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
-    url(r'^home/$', root_views.home, name='home'),
+    url(r'^home/$', Home.as_view(), name='home'),
+    url(r'^stock/', include('stock.urls', namespace='stock')),
 ]

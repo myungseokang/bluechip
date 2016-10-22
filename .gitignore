@@ -2,10 +2,16 @@
 .idea
 
 # Python cache files
-__pycache__/
+__pycache__
+
+# Migration files
+migrations
 
 # for Mac
 .DS_Store
 
 # Autoenv
 .env
+
+# Database
+db.sqlite3

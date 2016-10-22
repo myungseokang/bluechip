@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
     <h2>Dicon</h2>
     {{ user.username }}
-    <form class="" action="{% url 'auth:login' %}" method="post">
-      {% csrf_token %}
-      {{ Login_Form.as_p }}
-      <input type="submit" name="name" value="Login">
+    <form class="" action="{% url 'auth:login' %}" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="name" value="Login">
     </form>
     <a href="{% url 'logout' %}">logout</a>
-  </body>
-</html>
+{% endblock %}
