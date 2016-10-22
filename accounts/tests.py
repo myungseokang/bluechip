@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.shortcuts import get_object_or_404
 
 from .models import InvestUser
 
@@ -11,5 +12,5 @@ class InvestUserTestCase(TestCase):
         """
         Create user test
         """
-        testuser = InvestUser.objects.get_or_404(username='testuser')
+        testuser = get_object_or_404(InvestUser, username='testuser')
         self.assertEqual(testuser.username, 'testuser')

@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^home/$', Home.as_view(), name='home'),
+    url(r'^stock/', include('stock.urls', namespace='stock')),
 ]
