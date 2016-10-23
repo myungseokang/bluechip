@@ -39,4 +39,3 @@ class Stock(models.Model):
 class StockUser(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
-
