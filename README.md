@@ -1,6 +1,8 @@
 Invest House
 ============
 [![Build Status](https://travis-ci.org/Leop0ld/invest_house.svg?branch=master)](https://travis-ci.org/Leop0ld/invest_house)
+[![codecov](https://codecov.io/gh/Leop0ld/invest_house/branch/master/graph/badge.svg)](https://codecov.io/gh/Leop0ld/invest_house)
+
 
 Sunrin Dicon 2016
 
