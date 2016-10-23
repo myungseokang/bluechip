@@ -13,7 +13,7 @@ def business():
     html = BeautifulSoup(html_doc.text, 'lxml')
     table_tag = html.find_all('table', {'class':'gTable'})
     h4_tag = html.find_all('h4', {'class':'fl_le'})
-    business = []
+    business_list = []
     for i in range(len(h4_tag)):
         business_name = h4_tag[i].text.split('|')[0]
         stock_html = table_tag[i].find_all('tr')
@@ -21,18 +21,45 @@ def business():
             try:
                 error = stocks.find('td',{'class':'txt'}).txt
             except:
+                print('error1')
                 continue
             stock = stocks.find_all('td')
             txt = stocks.find_all('td',{'class':'txt'})
             code = txt[0].a.get('href')[-6:]
-            business.append({'business':business_name, 'title':stock[0].text, 'price':stock[1].text.replace(',',''), 'change':float(stock[2].text.replace('%', '')), 'code':code})
+            business_list.append({'business':business_name, 'title':stock[0].text, 'price':stock[1].text.replace(',',''), 'change':float(stock[2].text.replace('%', '')), 'code':code})
             try:
                 code = txt[1].a.get('href')[-6:]
-                business.append({'business':business_name, 'title':stock[3].text, 'price':stock[4].text.replace(',',''), 'change':float(stock[5].text.replace('%','')), 'code':code})
+                business_list.append({'business':business_name, 'title':stock[3].text, 'price':stock[4].text.replace(',',''), 'change':float(stock[5].text.replace('%','')), 'code':code})
             except:
+                print('error2')
                 continue
-        return business
+    return business_list
 
+url="http://finance.daum.net/quote/all.daum?nil_profile=stockprice&nil_menu=siseleftmenu23"
+html_doc = requests.get(url)
+html = BeautifulSoup(html_doc.text, 'lxml')
+table_tag = html.find_all('table', {'class':'gTable'})
+h4_tag = html.find_all('h4', {'class':'fl_le'})
+business = []
+for i in range(len(h4_tag)):
+    business_name = h4_tag[i].text.split('|')[0]
+    stock_html = table_tag[i].find_all('tr')
+    for stocks in stock_html:
+        try:
+            error = stocks.find('td',{'class':'txt'}).txt
+        except:
+            print('error1')
+            continue
+        stock = stocks.find_all('td')
+        txt = stocks.find_all('td',{'class':'txt'})
+        code = txt[0].a.get('href')[-6:]
+        business.append({'business':business_name, 'title':stock[0].text, 'price':stock[1].text.replace(',',''), 'change':float(stock[2].text.replace('%', '')), 'code':code})
+        try:
+            code = txt[1].a.get('href')[-6:]
+            business.append({'business':business_name, 'title':stock[3].text, 'price':stock[4].text.replace(',',''), 'change':float(stock[5].text.replace('%','')), 'code':code})
+        except:
+            print('error2')
+            continue
 def graph_url(code):
     """
     종목에 대한 그래프 url은 똑같은듯함.
