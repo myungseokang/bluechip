@@ -42,6 +42,7 @@ class Stock(models.Model):
         url = "http://finance.daum.net/item/main.daum"
         html_doc = requests.get(url, params={'code':self.code})
         html = BeautifulSoup(html_doc.text, 'lxml')
+        self.change=html.find('ul',{'class':'list_stockrate'}).find_all('li')[2].text.replace('％','')
         self.price=html.find('ul',{'class':'list_stockrate'}).li.em.text.replace(',', '')
         stock_html = html.find('div', {'id':'stockContent'}).find_all('dl')
         for stock in stock_html:
@@ -61,6 +62,6 @@ class Stock(models.Model):
                 self.min_price=int(quote)
                 break
 
-class StockUser(models.Model):
+class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
