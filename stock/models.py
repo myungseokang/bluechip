@@ -32,8 +32,6 @@ class Stock(models.Model):
     # 등락률
     change = models.FloatField(default=0)
 
-    users = models.ManyToManyField(StockUser, blank=True)
-
     def __str__(self):
         return self.title
 
