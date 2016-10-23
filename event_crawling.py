@@ -35,31 +35,9 @@ def business():
                 continue
     return business_list
 
-url="http://finance.daum.net/quote/all.daum?nil_profile=stockprice&nil_menu=siseleftmenu23"
-html_doc = requests.get(url)
-html = BeautifulSoup(html_doc.text, 'lxml')
-table_tag = html.find_all('table', {'class':'gTable'})
-h4_tag = html.find_all('h4', {'class':'fl_le'})
-business = []
-for i in range(len(h4_tag)):
-    business_name = h4_tag[i].text.split('|')[0]
-    stock_html = table_tag[i].find_all('tr')
-    for stocks in stock_html:
-        try:
-            error = stocks.find('td',{'class':'txt'}).txt
-        except:
-            print('error1')
-            continue
-        stock = stocks.find_all('td')
-        txt = stocks.find_all('td',{'class':'txt'})
-        code = txt[0].a.get('href')[-6:]
-        business.append({'business':business_name, 'title':stock[0].text, 'price':stock[1].text.replace(',',''), 'change':float(stock[2].text.replace('%', '')), 'code':code})
-        try:
-            code = txt[1].a.get('href')[-6:]
-            business.append({'business':business_name, 'title':stock[3].text, 'price':stock[4].text.replace(',',''), 'change':float(stock[5].text.replace('%','')), 'code':code})
-        except:
-            print('error2')
-            continue
+#for i in a:
+#    Stock.objects.create(business=i['business'], title=i['title'], price=i['price'], code=i['code'])
+
 def graph_url(code):
     """
     종목에 대한 그래프 url은 똑같은듯함.
@@ -87,9 +65,6 @@ def day_quote(code):
     return url
 
 def stock_data(code):
-    """
-    ex code = 005930
-    """
     url = "http://finance.daum.net/item/main.daum"
     html_doc = requests.get(url, params={'code':code})
     html = BeautifulSoup(html_doc.text, 'lxml')
@@ -97,9 +72,18 @@ def stock_data(code):
     stock_datas=[]
     for stock in stock_html:
         name = stock.dt.text
-        quote = stock.dd.text.replace('\t', '').replace('\n', '')
-        if (name=='전일' or name=='고가' or name=='저가' or name=='시가' or name=='상한가' or name=='하한가'):
-            stock_datas.append({'name':name, 'quote':quote})
-            if (name=='하한가'):
-                break
+        quote = stock.dd.text.replace('\t', '').replace('\n', '').replace(',', '').replace('-','')
+        if (name=="전일"):
+            stock_datas.append({'yesterday_price':int(quote)})
+        elif(name=='고가'):
+            stock_datas.append({'high_price':int(quote)})
+        elif(name=='저가'):
+            stock_datas.append({'low_price':int(quote)})
+        elif(name=='시가'):
+            stock_datas.append({'today_start_price':int(quote)})
+        elif(name=='상한가'):
+            stock_datas.append({'max_price':int(quote)})
+        elif(name=='하한가'):
+            stock_datas.append({'min_price':int(quote)})
+            break
     return stock_datas
