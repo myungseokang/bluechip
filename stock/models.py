@@ -38,6 +38,18 @@ class Stock(models.Model):
     # 거래량
     deal = models.PositiveIntegerField(default=0)
 
+    # 1일 그래프
+    today_graph = models.URLField(max_length=200, default='')
+
+    # 1개월 그래프
+    month_graph = models.URLField(max_length=200, default='')
+
+    # 3개월 그래프
+    three_month_graph = models.URLField(max_length=200, default='')
+
+    # 1년 그래프
+    year_graph = models.URLField(max_length=200, default='')
+
     def __str__(self):
         return self.title
 
@@ -66,6 +78,17 @@ class Stock(models.Model):
                 self.min_price=int(quote)
                 self.save()
                 break
+
+    def graph_url(self):
+        url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'
+        html_doc = requests.get(url, params={'code':self.code})
+        html = BeautifulSoup(html_doc.text, 'lxml')
+        graphs = html.find('div', {'id':'stockGraph'}).find_all('img')
+        self.today_graph = graphs[0].get('src')
+        self.month_graph = graphs[1].get('src')
+        self.three_month_graph = graphs[2].get('src')
+        self.year_graph = graphs[3].get('src')
+        self.save()
 
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
