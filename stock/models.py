@@ -62,6 +62,23 @@ class Stock(models.Model):
                 self.min_price=int(quote)
                 break
 
+
+
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
+
+    # 요청 종류 0 : 매도 1 : 매수
+    request_flag = models.BooleanField(default=0)
+
+    # 요청 가격
+    request_price = models.PositiveIntegerField(default=0)
+
+    # 요쳥했을 떄의 현재가
+    when_price = models.PositiveIntegerField(default=0)
+
+    # 요청 개수
+    count = models.PositiveIntegerField(default=0)
+
+    # 거래 상태
+    flag = models.BooleanField(default=0)

@@ -6,5 +6,5 @@ class InvestUser(AbstractUser):
     """
     모의 투자 유저
     """
-
+    nickname = models.CharField("닉네임",max_length=100)
     money = models.IntegerField(default=100000)

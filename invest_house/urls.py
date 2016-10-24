@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import Home
+from .views import Home, Sign_up
 from django.contrib.auth.views import logout
 
 urlpatterns = [
@@ -25,6 +25,9 @@ urlpatterns = [
     # Logout를 하면 /home URl에 연결하고싶었습니다.
     url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
+
     url(r'^home/$', Home.as_view(), name='home'),
+    url(r'^sign-up', Sign_up.as_view(), name='sign-up'),
+
     url(r'^stock/', include('stock.urls', namespace='stock')),
 ]

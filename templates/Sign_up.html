@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sing_up</title>
+  </head>
+  <body>
+    <h2>Dicon</h2>
+    <form class="" action="{% url 'sign-up' %}" method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" name="name" value="회원가입">
+    </form>
+  </body>
+</html>
