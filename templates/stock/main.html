@@ -4,7 +4,13 @@
 
 {% block body %}
 
-{{ first.title }}
+<form action="{% url 'stock:search' %}" method="POST">
+  {% csrf_token %}
+  {{ searchForm.as_p }}
+</form>
+
+
+<a href="{% url 'stock:stock_detail' first.code %}">{{ first.title }}</a>
 {{ first.price }} <br>
 1일 <img src="{{ first.today_graph}}" alt="" /> <br>
 1개월 <img src="{{ first.month_graph}}" alt="" /> <br>
