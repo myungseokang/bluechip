@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Stock main{% endblock %}
+
+{% block body %}
+
+{{ first.title }}
+{{ first.price }} <br>
+1일 <img src="{{ graph.0 }}" alt="" /> <br>
+1개월 <img src="{{graph.1}}" alt="" /> <br>
+3개월 <img src="{{graph.2}}" alt="" /> <br>
+1년 <img src="{{ graph.3 }}" alt="" /> <br>
+
+{% endblock %}
