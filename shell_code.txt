@@ -6,3 +6,8 @@ from stock.models import Stock
 stock = business()  
 for i in stock:  
   Stock.objects.create(business=i['business'], code=i['code'], title=i['title'])
+
+from stock.models import Stock
+stock=Stock.objects.all()
+for i in stock:
+    i.stock_reset()
