@@ -1,3 +1,4 @@
+1. 초기 종목 생성
 from bs4 import BeautifulSoup  
 import requests  
 import lxml   
@@ -7,7 +8,21 @@ stock = business()
 for i in stock:  
   Stock.objects.create(business=i['business'], code=i['code'], title=i['title'])
 
+2. 종목 데이터 세분화
 from stock.models import Stock
+from bs4 import BeautifulSoup  
+import requests  
+import lxml
 stock=Stock.objects.all()
 for i in stock:
     i.stock_reset()
+
+3.graph_url
+from stock.models import Stock
+from bs4 import BeautifulSoup  
+import requests  
+import lxml   
+
+stock=Stock.objects.all()
+for i in stock:
+    i.graph_url()
