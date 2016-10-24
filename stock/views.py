@@ -10,3 +10,8 @@ def main(request):
 class StockLV(ListView):
     template_name = 'stock/stock_list.html'
     model = Stock
+
+def stockDV(request, code):
+    print(code)
+    stock = Stock.objects.get(code=code)
+    return render(request, 'stock/stock_detail.html', {'stock':stock})
