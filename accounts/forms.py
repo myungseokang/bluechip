@@ -2,9 +2,6 @@ from django import forms
 from accounts.models import InvestUser
 
 class Sing_upForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(forms.ModelForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = "아이디"
 
     error_messages = {
         'password_mismatch': ("The two password fields didn't match."),
@@ -26,3 +23,6 @@ class Sing_upForm(forms.ModelForm):
         labes = {
             "username":"아이디",
         }
+    #def __init__(self, *args, **kwargs):
+    #    super(forms.ModelForm, self).__init__(*args, **kwargs)
+    #    self.fields['username'].label = "아이디"

@@ -1,0 +1,8 @@
+from bs4 import BeautifulSoup  
+import requests  
+import lxml   
+from event_crawling import business  
+from stock.models import Stock  
+stock = business()  
+for i in stock:  
+  Stock.objects.create(business=i['business'], code=i['code'], title=i['title'])

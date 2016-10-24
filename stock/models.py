@@ -35,6 +35,9 @@ class Stock(models.Model):
     # 등락률
     change = models.FloatField(default=0)
 
+    # 거래량
+    deal = models.PositiveIntegerField(default=0)
+
     def __str__(self):
         return self.title
 
