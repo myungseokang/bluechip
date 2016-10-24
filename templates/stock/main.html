@@ -6,9 +6,9 @@
 
 {{ first.title }}
 {{ first.price }} <br>
-1일 <img src="{{ graph.0 }}" alt="" /> <br>
-1개월 <img src="{{graph.1}}" alt="" /> <br>
-3개월 <img src="{{graph.2}}" alt="" /> <br>
-1년 <img src="{{ graph.3 }}" alt="" /> <br>
+1일 <img src="{{ first.today_graph}}" alt="" /> <br>
+1개월 <img src="{{ first.month_graph}}" alt="" /> <br>
+3개월 <img src="{{ first.three_month_graph}}" alt="" /> <br>
+1년 <img src="{{ first.year_graph }}" alt="" /> <br>
 
 {% endblock %}
