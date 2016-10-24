@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Stock Search{% endblock %}
+
+{% block body %}
+
+{% for stock in stocks %}
+  {{ forloop.counter }} <a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a> <br>
+{% endfor %}
+
+{% endblock %}
