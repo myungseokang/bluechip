@@ -94,7 +94,7 @@ class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
 
-    # 요청 종류 0 : 매도 1 : 매수
+    # 요청 종류 0 : 매도, 1 : 매수
     request_flag = models.BooleanField(default=0)
 
     # 요청 가격
@@ -108,3 +108,50 @@ class StockManager(models.Model):
 
     # 거래 상태
     flag = models.BooleanField(default=0)
+
+    def __str__(self):
+        return '%s_%s' %(self.user.nickname, self.stock.title)
+
+    """
+    user과 stock를 설정 후 실행
+    """
+    def buy(self, request_price, count):
+        if (self.user.money-(int(request_price)*int(count))<0):
+            self.delete()
+            return 0
+        self.request_flag = 0
+        self.when_price = stock.price
+        self.request_price = request_price
+        self.count = count
+        self.user.money-=(int(request_price)*int(count))
+        self.save()
+        self.user.save()
+
+    def buy_conclusion(self):
+        if (self.stock.price==self.request_price or self.when_price==self.request_price):
+            flag = 1
+        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
+            flag = 1
+        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
+            flag = 1
+        self.save()
+
+    def sell(self, requests, count):
+        self.request_flag = 1
+        self.when_price = stock.price
+        self.request_price = request_price
+        self.count = count
+        self.save()
+
+    def buy_conclusion(self):
+        if (self.stock.price==self.request_price or self.when_price==self.request_price):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        self.save()
+        self.user.save()
