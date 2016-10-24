@@ -53,21 +53,19 @@ class Stock(models.Model):
             name = stock.dt.text
             quote = stock.dd.text.replace('\t', '').replace('\n', '').replace(',', '').replace('-','')
             if (name=="전일"):
-                self.yesterday_priceint=int(quote)
+                self.yesterday_price=int(quote)
             elif(name=='고가'):
                 self.high_price=int(quote)
             elif(name=='저가'):
                 self.low_price=int(quote)
             elif(name=='시가'):
-                today_start_price=int(quote)
+                self.today_start_price=int(quote)
             elif(name=='상한가'):
                 self.max_price=int(quote)
             elif(name=='하한가'):
                 self.min_price=int(quote)
                 self.save()
                 break
-
-
 
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
