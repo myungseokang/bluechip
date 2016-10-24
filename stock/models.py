@@ -64,6 +64,7 @@ class Stock(models.Model):
                 self.max_price=int(quote)
             elif(name=='하한가'):
                 self.min_price=int(quote)
+                self.save()
                 break
 
 
