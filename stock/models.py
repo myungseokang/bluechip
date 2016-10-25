@@ -113,44 +113,51 @@ class StockManager(models.Model):
 
     """
     user과 stock를 설정 후 실행
+    sell : 매도
+    buy : 매수
     """
-    def buy(self, request_price, count):
-        if (self.user.money-(int(request_price)*int(count))<0):
-            self.delete()
-            return 0
+    def sell(self, requests, count):
         self.request_flag = 0
         self.when_price = stock.price
+        self.request_price = request_price
+        self.count = count
+        self.save()
+
+    def sell_conclusion(self):
+        if (self.stock.price==self.request_price or self.when_price==self.request_price):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        self.save()
+        self.user.save()
+
+    def buy(self, request_price, count):
+
+        if (not(request_price<=self.stock.high_price and request_price>=self.stock.low_price)):
+            self.delete()
+            return "호가를 고가 저가 사이에서 입력하세요"
+        if (self.user.money-(int(request_price)*int(count))<0):
+            self.delete()
+            return 'your money : %d\nstock price : %d\nerror' %(self.user.money, int(request_price)*int(count))
+        self.request_flag = 1
+        self.when_price = self.stock.price
         self.request_price = request_price
         self.count = count
         self.user.money-=(int(request_price)*int(count))
         self.save()
         self.user.save()
+        return 1
 
     def buy_conclusion(self):
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
-            flag = 1
+            self.flag = 1
         if((self.stock.price>self.request_price and self.when_price<self.request_price)):
-            flag = 1
+            self.flag = 1
         elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
-            flag = 1
+            self.flag = 1
         self.save()
-
-    def sell(self, requests, count):
-        self.request_flag = 1
-        self.when_price = stock.price
-        self.request_price = request_price
-        self.count = count
-        self.save()
-
-    def buy_conclusion(self):
-        if (self.stock.price==self.request_price or self.when_price==self.request_price):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        self.save()
-        self.user.save()

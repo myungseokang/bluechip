@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Stock
+from .models import Stock, StockManager
 from .forms import searchForm, requestForm
 
 def main(request):
@@ -16,10 +16,12 @@ class StockLV(ListView):
     template_name = 'stock/stock_list.html'
     model = Stock
 
-def stockDV(request, code):
+def stockDV(request, code,message=0):
     request_Form = requestForm()
     stock = Stock.objects.get(code=code)
     stock.stock_reset()
+    if (message!=0):
+        return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':requestForm, 'message':message})
     return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':request_Form})
 
 def stock_search(request):
@@ -36,10 +38,25 @@ def stock_search(request):
             return render(request, 'stock/stock_search.html', {'stocks':stocks})
     return HttpResponseRedirect(reverse('stock:main'))
 
+def Balances(request):
+    return render(request, 'stock/Balances.html')
 
 def stock_request(request, code):
     if request.method == "POST":
         form = requestForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['request_flag'])
-    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
+            request_flag = int(form.cleaned_data['request_flag'])
+            request_price = int(form.cleaned_data['request_price'])
+            count = int(form.cleaned_data['count'])
+            if(request_flag==0):
+                print("매도")
+            elif(request_flag==1):
+                print("매수")
+                new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
+                new_stock.save()
+                result = new_stock.buy(request_price, count)
+                print(result)
+                if(result!='1'):
+                    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
+                new_stock.buy_conclusion()
+    return HttpResponseRedirect(reverse('stock:Balances'))
