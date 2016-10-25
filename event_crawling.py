@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import lxml
+
 import time
 
 
@@ -10,7 +10,7 @@ def business():
     """
     url="http://finance.daum.net/quote/all.daum?nil_profile=stockprice&nil_menu=siseleftmenu23"
     html_doc = requests.get(url)
-    html = BeautifulSoup(html_doc.text, 'lxml')
+    html = BeautifulSoup(html_doc.text, 'html.parser')
     table_tag = html.find_all('table', {'class':'gTable'})
     h4_tag = html.find_all('h4', {'class':'fl_le'})
     business_list = []
@@ -39,13 +39,9 @@ def business():
 #    Stock.objects.create(business=i['business'], title=i['title'], price=i['price'], code=i['code'])
 
 def graph_url(code):
-    """
-    종목에 대한 그래프 url은 똑같은듯함.
-    """
-    code = '005930'
     url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'
     html_doc = requests.get(url, params={'code':code})
-    html = BeautifulSoup(html_doc.text, 'lxml')
+    html = BeautifulSoup(html_doc.text, 'html.parser')
     graphs = html.find('div', {'id':'stockGraph'}).find_all('img')
     graph_img = []
     for graph in graphs:
@@ -67,7 +63,7 @@ def day_quote(code):
 def stock_data(code):
     url = "http://finance.daum.net/item/main.daum"
     html_doc = requests.get(url, params={'code':code})
-    html = BeautifulSoup(html_doc.text, 'lxml')
+    html = BeautifulSoup(html_doc.text, 'html.parser')
     stock_html = html.find('div', {'id':'stockContent'}).find_all('dl')
     stock_datas=[]
     for stock in stock_html:
