@@ -3,5 +3,15 @@
 {% block title %}Stock Detail{% endblock %}
 
 {% block body %}
-{{ stock.title }} {{ stock.price }} {{ stock.change }}
+{{ stock.title }} {{ stock.price }} {{ stock.change }}% <br>
+<img src="{{ stock.today_graph }}" alt="today_graph" /> <br>
+전일 : {{ stock.yesterday_price }} 고가 : {{ stock.high_price }} <br>
+시가 : {{ stock.today_start_price }} 저가 : {{ stock.low_price }} <br>
+상한가 : {{ stock.max_price }} 하한가 : {{ stock.min_price }}
+
+<form action="{% url 'stock:request' stock.code %}" method="post">
+  {% csrf_token %}
+  {{ requestForm.as_p }}
+  <input type="submit" name="name" value="submit">
+</form>
 {% endblock %}
