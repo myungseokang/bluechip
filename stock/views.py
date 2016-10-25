@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .models import Stock
-from .forms import searchForm
+from .forms import searchForm, requestForm
 
 def main(request):
     search_Form = searchForm()
@@ -17,9 +17,10 @@ class StockLV(ListView):
     model = Stock
 
 def stockDV(request, code):
-    print(code)
+    request_Form = requestForm()
     stock = Stock.objects.get(code=code)
-    return render(request, 'stock/stock_detail.html', {'stock':stock})
+    stock.stock_reset()
+    return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':request_Form})
 
 def stock_search(request):
     if request.method == 'POST':
@@ -34,3 +35,11 @@ def stock_search(request):
         else:
             return render(request, 'stock/stock_search.html', {'stocks':stocks})
     return HttpResponseRedirect(reverse('stock:main'))
+
+
+def stock_request(request, code):
+    if request.method == "POST":
+        form = requestForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data['request_flag'])
+    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
