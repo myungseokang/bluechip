@@ -22,7 +22,6 @@ from django.contrib.auth.views import logout
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    # Logout를 하면 /home URl에 연결하고싶었습니다.
     url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
 
