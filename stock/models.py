@@ -4,7 +4,6 @@ from accounts.models import InvestUser
 
 from bs4 import BeautifulSoup
 import requests
-import lxml
 
 class Stock(models.Model):
     business = models.CharField(max_length=30)
@@ -56,7 +55,7 @@ class Stock(models.Model):
     def stock_reset(self):
         url = "http://finance.daum.net/item/main.daum"
         html_doc = requests.get(url, params={'code':self.code})
-        html = BeautifulSoup(html_doc.text, 'lxml')
+        html = BeautifulSoup(html_doc.text, 'html.parser')
         self.deal=int(html.find('ul',{'class':'list_stockrate'}).find_all('li')[4].span.text.replace(',', ''))
         self.change=float(html.find('ul',{'class':'list_stockrate'}).find_all('li')[2].text.replace('％',''))
         self.price=int(html.find('ul',{'class':'list_stockrate'}).li.em.text.replace(',', ''))
@@ -82,7 +81,7 @@ class Stock(models.Model):
     def graph_url(self):
         url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'
         html_doc = requests.get(url, params={'code':self.code})
-        html = BeautifulSoup(html_doc.text, 'lxml')
+        html = BeautifulSoup(html_doc.text, 'html.parser')
         graphs = html.find('div', {'id':'stockGraph'}).find_all('img')
         self.today_graph = graphs[0].get('src')
         self.month_graph = graphs[1].get('src')
