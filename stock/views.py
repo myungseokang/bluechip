@@ -70,5 +70,5 @@ def stock_request(request, code):
 
 
 def balances(request):
-    #own_stock = request.user.own_stock()
+    own_stock = request.user.own_stock()
     return render(request, 'stock/Balances.html')
