@@ -68,7 +68,12 @@ def stock_request(request, code):
             new_stock.buy_conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
 
-
 def balances(request):
     own_stock = request.user.own_stock()
-    return render(request, 'stock/Balances.html')
+    log_stock = request.user.log_stock()
+    print(log_stock)
+    context = {
+        'own_stocks':own_stock,
+        'log_stocks':log_stock,
+    }
+    return render(request, 'stock/Balances.html', context)

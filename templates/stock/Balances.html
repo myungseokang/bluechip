@@ -3,5 +3,48 @@
 {% block title %}Stock Balances{% endblock %}
 
 {% block body %}
-  통장 잔액 : {{ request.user.money }}
+<br><br>
+통장 잔액 : {{ request.user.money }}
+
+<h3>보유 주식</h3>
+<table>
+<tr>
+<th>종목 이름</th>  <th>보유 개수</th> <th>현재가</th>
+</tr>
+{% for own_stock in own_stocks %}
+ <tr>
+   <td>{{ own_stock.title }}</td>
+   <td>{{ own_stock.count }}개</td>
+   <td>{{ own_stock.price }}</td>
+ </tr>
+{%  endfor %}
+</table>
+
+<h3>주식 현황</h3>
+<table>
+  <tr>
+   <th>종류</th> <th>종목 이름</th>  <th>신청가</th> <th>현재가</th> <th>상태</th>
+  </tr>
+  {% for log_stock in log_stocks %}
+  <tr>
+    <td>
+      {% if log_stock.request_flag %}
+        매수
+      {% else %}
+        매도
+      {% endif %}
+    </td>
+  <td>{{ log_stock.stock.title }}</td>
+  <td>{{ log_stock.request_price }}</td>
+  <td>{{ log_stock.stock.price }}</td>
+    <td>
+      {% if log_stock.flag %}
+        체결
+      {% else %}
+        미체결
+      {% endif %}
+    </td>
+    {% endfor %}
+  </tr>
+</table>
 {% endblock %}
