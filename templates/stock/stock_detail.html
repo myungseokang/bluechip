@@ -38,6 +38,7 @@
   {% endfor %}
 </table>
 
+{{ request.user.nickname }}님의 소지 금액 : {{ request.user.money }}
 <form action="{% url 'stock:request' stock.code %}" method="POST">
   {% csrf_token %}
   <select name="request_flag" id="stock" onchange="changeValue(this.value)">

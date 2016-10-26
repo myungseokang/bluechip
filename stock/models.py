@@ -1,5 +1,4 @@
 from django.db import models
-
 from accounts.models import InvestUser
 
 from bs4 import BeautifulSoup
