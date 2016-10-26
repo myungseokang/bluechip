@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
 
 from .models import Stock, StockManager
 from .forms import searchForm, requestForm
+
 
 def main(request):
     search_Form = searchForm()
@@ -16,10 +17,11 @@ class StockLV(ListView):
     template_name = 'stock/stock_list.html'
     model = Stock
 
-def stockDV(request, code):
+def stockDV(request, code, message=''):
     request_Form = requestForm()
     stock = Stock.objects.get(code=code)
     buy_prices, sell_price = stock.asking_price()
+    messages.add_message(request, messages.INFO, message)
     return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':request_Form, 'buy_prices':buy_prices,'sell_prices':sell_price})
 
 def stock_search(request):
@@ -55,6 +57,6 @@ def stock_request(request, code):
                 result = new_stock.buy(request_price, count)
                 print(result)
                 if(result!='1'):
-                    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
+                    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code, result)))
                 new_stock.buy_conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))

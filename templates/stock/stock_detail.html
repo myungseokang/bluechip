@@ -11,7 +11,13 @@
 
 <br><br>
 <a href="#">매도/매수</a> <a href="#">차트</a> <a href="#">기업 정보</a>
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <br><br>
 <table>
   <tr>
@@ -37,10 +43,4 @@
   {{ requestForm.as_p }}
   <input type="submit" name="name" value="submit">
 </form>
-{% endblock %}
-
-{% block script %}
-  {% if message %}
-    alert({{ message }})
-  {% endif %}
 {% endblock %}
