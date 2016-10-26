@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'stock.apps.StockConfig',
     'django_extensions',
+    'stock_analsis.app.StockAnalysisConfig',
 ]
 
 MIDDLEWARE = [
