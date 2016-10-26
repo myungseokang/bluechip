@@ -43,20 +43,20 @@ def Balances(request):
 
 def stock_request(request, code):
     if request.method == "POST":
-        form = requestForm(request.POST)
-        if form.is_valid():
-            request_flag = int(form.cleaned_data['request_flag'])
-            request_price = int(form.cleaned_data['request_price'])
-            count = int(form.cleaned_data['count'])
-            if(request_flag==0):
-                print("매도")
-            elif(request_flag==1):
-                print("매수")
-                new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
-                new_stock.save()
-                result = new_stock.buy(request_price, count)
-                print(result)
-                if(result!='1'):
-                    return HttpResponseRedirect(reverse('stock:stock_detail', args=(code, result)))
-                new_stock.buy_conclusion()
+        request_flag = int(request.POST['request_flag'])
+        request_price = int(request.POST['request_price'])
+        count = int(request.POST['count'])
+        print(request_flag, request_price, count)
+        if(request_flag==0):
+            print("매도")
+        elif(request_flag==1):
+            print("매수")
+            print(int(request_price)*int(count))
+            new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
+            new_stock.save()
+            result = new_stock.buy(request_price, count)
+            print(result)
+            if(result!='1'):
+                return HttpResponseRedirect(reverse('stock:stock_detail', args=(code, result)))
+            new_stock.buy_conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))

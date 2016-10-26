@@ -39,7 +39,8 @@
 </table>
 
 <form action="{% url 'stock:request' stock.code %}" method="POST">
-  <select id="stock" onchange="changeValue(this.value)">
+  {% csrf_token %}
+  <select name="request_flag" id="stock" onchange="changeValue(this.value)">
     <option value="0">매도
     <option value="1">매수
   </select>

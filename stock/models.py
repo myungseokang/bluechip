@@ -157,10 +157,6 @@ class StockManager(models.Model):
         self.user.save()
 
     def buy(self, request_price, count):
-
-        if (not(request_price<=self.stock.high_price and request_price>=self.stock.low_price)):
-            self.delete()
-            return "호가를 고가 저가 사이에서 입력하세요"
         if (self.user.money-(int(request_price)*int(count))<0):
             self.delete()
             return 'your money : %d\nstock price : %d\nerror' %(self.user.money, int(request_price)*int(count))
