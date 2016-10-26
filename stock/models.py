@@ -128,6 +128,8 @@ class StockManager(models.Model):
     # 거래 상태
     flag = models.BooleanField(default=0)
 
+    create_time = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return '%s_%s' %(self.user.nickname, self.stock.title)
 
@@ -170,6 +172,8 @@ class StockManager(models.Model):
         return 1
 
     def buy_conclusion(self):
+        if(self.flag==1):
+            return
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
             self.flag = 1
         if((self.stock.price>self.request_price and self.when_price<self.request_price)):

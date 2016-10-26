@@ -38,9 +38,6 @@ def stock_search(request):
             return render(request, 'stock/stock_search.html', {'stocks':stocks})
     return HttpResponseRedirect(reverse('stock:main'))
 
-def Balances(request):
-    return render(request, 'stock/Balances.html')
-
 def stock_request(request, code):
     if request.method == "POST":
         request_flag = int(request.POST['request_flag'])
@@ -55,8 +52,14 @@ def stock_request(request, code):
             new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
             new_stock.save()
             result = new_stock.buy(request_price, count)
-            print(result)
-            if(result!='1'):
-                return HttpResponseRedirect(reverse('stock:stock_detail', args=(code, result)))
+            print(type(result))
+            if(result!=1):
+                return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
             new_stock.buy_conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
+
+def Balances(request):
+    buy_flag_0  = StockManager.objects.filter(flag=0, request_flag=1)
+    for i in buy_flag_0:
+        i.buy_conclusion()
+    return render(request, 'stock/Balances.html')
