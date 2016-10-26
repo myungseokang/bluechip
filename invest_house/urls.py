@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^sign-up/$', Sign_up.as_view(), name='sign-up'),
 
     url(r'^stock/', include('stock.urls', namespace='stock')),
+
+    url(r'^stock_analsis/', include('stock_analysis.urls', namespace="stock_analysis")),
 ]
