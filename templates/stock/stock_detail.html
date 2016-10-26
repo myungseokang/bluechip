@@ -39,8 +39,34 @@
 </table>
 
 <form action="{% url 'stock:request' stock.code %}" method="POST">
-  {% csrf_token %}
-  {{ requestForm.as_p }}
+  <select id="stock" onchange="changeValue(this.value)">
+    <option value="0">매도
+    <option value="1">매수
+  </select>
+  <select id="price" name="request_price">
+    {% for price in sell_prices %}
+      <option value="{{price}}">{{price}}
+    {% endfor %}
+  </select>
+  <input type="number" name="count" value="1" min="1" max="100" step="1">
   <input type="submit" name="name" value="submit">
 </form>
+
+{% endblock %}
+
+{% block script %}
+  function changeValue(val){
+    if(val==0){
+      {% for sell in sell_prices %}
+      document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ sell }})
+      document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ sell }}
+      {% endfor %}
+      }
+    else{
+      {% for buy in buy_prices %}
+      document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ buy }})
+      document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ buy }}
+      {% endfor %}
+      }
+    }
 {% endblock %}
