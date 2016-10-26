@@ -9,11 +9,9 @@ class Stock(models.Model):
     title = models.CharField(max_length=20, unique=True, null=False)
     code = models.CharField(max_length=10, unique=True, null=False)
 
-    # 전일
-    yesterday_price = models.PositiveIntegerField(default=0)
+    yesterday_price = models.PositiveIntegerField(default=0, help_text="전일")
 
-    # 현재가
-    price = models.PositiveIntegerField(default=0)
+    price = models.PositiveIntegerField(default=0, help_text="현재가")
 
     # 시가
     today_start_price = models.PositiveIntegerField(default=0)
