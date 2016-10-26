@@ -65,5 +65,5 @@ def stock_request(request, code):
     return HttpResponseRedirect(reverse('stock:Balances'))
 
 def Balances(request):
-    #own_stock = request.user.own_stock()
+    own_stock = request.user.own_stock()
     return render(request, 'stock/Balances.html')
