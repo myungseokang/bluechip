@@ -3,4 +3,7 @@
 {% block title %}Stock List{% endblock %}
 
 {% block body %}
+  {% for stock in object_list %}
+    {{ stock.business }} - <a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a> <br>
+  {% endfor %}
 {% endblock %}

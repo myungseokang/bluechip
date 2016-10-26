@@ -16,13 +16,11 @@ class StockLV(ListView):
     template_name = 'stock/stock_list.html'
     model = Stock
 
-def stockDV(request, code,message=0):
+def stockDV(request, code):
     request_Form = requestForm()
     stock = Stock.objects.get(code=code)
-    stock.stock_reset()
-    if (message!=0):
-        return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':requestForm, 'message':message})
-    return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':request_Form})
+    buy_prices, sell_price = stock.asking_price()
+    return render(request, 'stock/stock_detail.html', {'stock':stock, 'requestForm':request_Form, 'buy_prices':buy_prices,'sell_prices':sell_price})
 
 def stock_search(request):
     if request.method == 'POST':

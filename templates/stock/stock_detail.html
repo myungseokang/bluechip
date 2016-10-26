@@ -9,9 +9,38 @@
 시가 : {{ stock.today_start_price }} 저가 : {{ stock.low_price }} <br>
 상한가 : {{ stock.max_price }} 하한가 : {{ stock.min_price }}
 
-<form action="{% url 'stock:request' stock.code %}" method="post">
+<br><br>
+<a href="#">매도/매수</a> <a href="#">차트</a> <a href="#">기업 정보</a>
+
+<br><br>
+<table>
+  <tr>
+    <th>매도 호가</th>
+  </tr>
+  {% for sell in sell_prices %}
+    <tr>
+      <td>{{ sell }}</td>
+    </tr>
+  {% endfor %}
+  <tr>
+    <th>매수 호가</th>
+  </tr>
+  {% for buy in buy_prices %}
+    <tr>
+      <td>{{ buy }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+<form action="{% url 'stock:request' stock.code %}" method="POST">
   {% csrf_token %}
   {{ requestForm.as_p }}
   <input type="submit" name="name" value="submit">
 </form>
+{% endblock %}
+
+{% block script %}
+  {% if message %}
+    alert({{ message }})
+  {% endif %}
 {% endblock %}

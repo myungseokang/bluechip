@@ -89,6 +89,26 @@ class Stock(models.Model):
         self.year_graph = graphs[3].get('src')
         self.save()
 
+    def asking_price(self):
+        url = "http://finance.daum.net/item/quote.daum"
+        html_doc = requests.get(url, params={'code':self.code})
+        html = BeautifulSoup(html_doc.text, 'html.parser')
+        buy_prices = []  # 매수 호가
+        sell_prices = [] # 매도 호가
+        for sell_price in html.find('table', {'class':'mColor'}).find_all('tr')[1:]:
+            try:
+                sell = int(sell_price.find_all('td', {'class':'rColor3'})[1].text.replace(',', ''))
+                sell_prices.append(sell)
+            except:
+                break
+        for buy_price in html.find('table', {'class':'mColor'}).find_all('tr')[6:]:
+            try:
+                buy = int(buy_price.find_all('td', {'class':'bColor3'})[0].text.replace(',', ''))
+                buy_prices.append(buy)
+            except:
+                break
+        return buy_prices, sell_prices
+
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
