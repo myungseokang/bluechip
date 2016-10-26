@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from stock.models import StockManager
+#from stock.models import StockManager
 
 
 class InvestUser(AbstractUser):

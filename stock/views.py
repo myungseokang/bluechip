@@ -59,14 +59,11 @@ def stock_request(request, code):
             result = new_stock.buy(request_price, count)
             print(type(result))
             if(result!=1):
-                return HttpResponseRedirect(reverse('stock:stock_detail', args=(code,)))
-            print(result)
-            if(result!='1'):
                 messages.add_message(request, messages.INFO, result)
                 return redirect('stock:stock_detail', code=code)
             new_stock.buy_conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
 
 def Balances(request):
-    own_stock = request.user.own_stock()
+    #own_stock = request.user.own_stock()
     return render(request, 'stock/Balances.html')

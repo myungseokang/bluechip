@@ -127,7 +127,7 @@ class StockManager(models.Model):
     # 거래 상태
     flag = models.BooleanField(default=0)
 
-    create_time = models.DateTimeField(auto_now=True)
+    create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '%s_%s' %(self.user.nickname, self.stock.title)
