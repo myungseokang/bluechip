@@ -9,44 +9,22 @@ class Stock(models.Model):
     title = models.CharField(max_length=20, unique=True, null=False)
     code = models.CharField(max_length=10, unique=True, null=False)
 
-    # 전일
-    yesterday_price = models.PositiveIntegerField(default=0)
+    yesterday_price = models.PositiveIntegerField(default=0, help_text="전일")
+    price = models.PositiveIntegerField(default=0, help_text="현재가")
+    today_start_price = models.PositiveIntegerField(default=0, help_text="시가")
 
-    # 현재가
-    price = models.PositiveIntegerField(default=0)
+    max_price = models.PositiveIntegerField(default=0, help_text="상한가")
+    min_price = models.PositiveIntegerField(default=0, help_text="하한가")
+    high_price = models.PositiveIntegerField(default=0, help_text="고가")
+    low_price = models.PositiveIntegerField(default=0, help_text="저가")
 
-    # 시가
-    today_start_price = models.PositiveIntegerField(default=0)
+    change = models.FloatField(default=0, help_text="등락률")
+    deal = models.PositiveIntegerField(default=0, help_text="거래량")
 
-    # 상한가
-    max_price = models.PositiveIntegerField(default=0)
-
-    # 하한가
-    min_price = models.PositiveIntegerField(default=0)
-
-    # 고가
-    high_price = models.PositiveIntegerField(default=0)
-
-    # 저가
-    low_price = models.PositiveIntegerField(default=0)
-
-    # 등락률
-    change = models.FloatField(default=0)
-
-    # 거래량
-    deal = models.PositiveIntegerField(default=0)
-
-    # 1일 그래프
-    today_graph = models.URLField(max_length=200, default='')
-
-    # 1개월 그래프
-    month_graph = models.URLField(max_length=200, default='')
-
-    # 3개월 그래프
-    three_month_graph = models.URLField(max_length=200, default='')
-
-    # 1년 그래프
-    year_graph = models.URLField(max_length=200, default='')
+    today_graph = models.URLField(max_length=200, default='', help_text="1일 그래프")
+    month_graph = models.URLField(max_length=200, default='', help_text="1개월 그래프")
+    three_month_graph = models.URLField(max_length=200, default='', help_text="3개월 그래프")
+    year_graph = models.URLField(max_length=200, default='', help_text="1년 그래프")
 
     def __str__(self):
         return self.title
