@@ -98,7 +98,6 @@ class Stock(models.Model):
                 request_buy += i.count
             elif i.request_flag == 0 and i.flag==0:
                 request_sell += i.count
-                own_count-=i.count
             elif i.request_flag == 0 and i.flag==1:
                 own_count-=i.count
         return own_count, request_buy, request_sell
