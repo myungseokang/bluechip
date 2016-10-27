@@ -21,14 +21,14 @@ class StockLV(ListView):
 
 
 def stock_detail(request, code):
-    request_form = requestForm()
     stock = Stock.objects.get(code=code)
     buy_prices, sell_price = stock.asking_price()
+    own_count=stock.about_stock(request.user)[0] # 소유 주식
     context = {
         'stock': stock,
-        'requestForm': request_form,
         'buy_prices': buy_prices,
         'sell_prices': sell_price,
+        'own_count' : own_count,
     }
     return render(request, 'stock/stock_detail.html', context)
 
@@ -55,17 +55,19 @@ def stock_request(request, code):
         print(request_flag, request_price, count)
         if request_flag == 0:
             print("매도")
-        elif request_flag == 1:
-            print("매수")
-            print(int(request_price)*int(count))
             new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
-            new_stock.save()
-            result = new_stock.buy(request_price, count)
-            print(type(result))
+            result = new_stock.sell(request_price, count)
             if result != 1:
                 messages.add_message(request, messages.INFO, result)
                 return redirect('stock:stock_detail', code=code)
-            new_stock.buy_conclusion()
+        elif request_flag == 1:
+            print("매수")
+            new_stock = StockManager.objects.create(user=request.user, stock=Stock.objects.get(code=code))
+            result = new_stock.buy(request_price, count)
+            if result != 1:
+                messages.add_message(request, messages.INFO, result)
+                return redirect('stock:stock_detail', code=code)
+            new_stock.conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
 
 def balances(request):

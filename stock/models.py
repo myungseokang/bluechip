@@ -108,6 +108,20 @@ class Stock(models.Model):
                 break
         return buy_prices, sell_prices
 
+    def about_stock(self, user):
+        user_stock = self.stockmanager_set.filter(user=user, stock=self)
+        print(user_stock)
+        own_count  = request_buy = request_sell = 0
+        for i in user_stock:
+            i.conclusion()
+            if i.request_flag==1 and i.flag==1:
+                own_count+=i.count
+            elif i.request_flag==1 and i.flag==0:
+                request_buy += i.count
+            elif i.request_flag == 0 and i.flag==0:
+                request_sell += i.count
+        return own_count, request_buy, request_sell
+
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
@@ -137,12 +151,18 @@ class StockManager(models.Model):
     sell : 매도
     buy : 매수
     """
-    def sell(self, requests, count):
+    def sell(self, request_price, count):
+        own_count = self.stock.about_stock(self.user)[0]
+        if (own_count-count<0):
+            self.delete()
+            return "매도량>보유 주식"
         self.request_flag = 0
-        self.when_price = stock.price
+        self.when_price = self.stock.price
         self.request_price = request_price
         self.count = count
         self.save()
+        self.delete()
+        return 1
 
     def sell_conclusion(self):
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
@@ -180,3 +200,9 @@ class StockManager(models.Model):
         elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
             self.flag = 1
         self.save()
+
+    def conclusion(self):
+        if(self.request_flag==1):
+            self.buy_conclusion()
+        elif(self.request_flag==0):
+            self.sell_conclusion()

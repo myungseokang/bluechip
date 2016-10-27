@@ -31,5 +31,5 @@ class InvestUser(AbstractUser):
         return own_stock
 
     def log_stock(self):
-        log = InvestUser.objects.get(username=self.username).stockmanager_set.filter(user=self).order_by('create_time')
+        log = self.stockmanager_set.filter(user=self).order_by('create_time')
         return log
