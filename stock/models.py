@@ -104,31 +104,17 @@ class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
 
-    # 요청 종류 0 : 매도, 1 : 매수
-    request_flag = models.BooleanField(default=0)
-
-    # 요청 가격
-    request_price = models.PositiveIntegerField(default=0)
-
-    # 요쳥했을 떄의 현재가
-    when_price = models.PositiveIntegerField(default=0)
-
-    # 요청 개수
-    count = models.PositiveIntegerField(default=0)
-
-    # 거래 상태
-    flag = models.BooleanField(default=0)
+    request_flag = models.BooleanField(default=0,  help_text="요청 종류 0:매도, 1:매수")
+    request_price = models.PositiveIntegerField(default=0,  help_text="요청 가격")
+    when_price = models.PositiveIntegerField(default=0,  help_text="요청 당시의 현재가")
+    count = models.PositiveIntegerField(default=0,  help_text="요청 개수")
+    flag = models.BooleanField(default=0,  help_text="0:미체결, 1:체결")
 
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '%s_%s' %(self.user.nickname, self.stock.title)
 
-    """
-    user과 stock를 설정 후 실행
-    sell : 매도
-    buy : 매수
-    """
     def sell(self, request_price, count):
         own_count = self.stock.about_stock(self.user)[0]
         if (own_count-count<0):
@@ -141,19 +127,6 @@ class StockManager(models.Model):
         self.save()
         self.delete()
         return 1
-
-    def sell_conclusion(self):
-        if (self.stock.price==self.request_price or self.when_price==self.request_price):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
-            self.user.money += self.request_price*self.count
-            flag = 1
-        self.save()
-        self.user.save()
 
     def buy(self, request_price, count):
         if (self.user.money-(int(request_price)*int(count))<0):
@@ -179,7 +152,20 @@ class StockManager(models.Model):
             self.flag = 1
         self.save()
 
-    def conclusion(self):
+    def sell_conclusion(self):
+        if (self.stock.price==self.request_price or self.when_price==self.request_price):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        if((self.stock.price>self.request_price and self.when_price<self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
+            self.user.money += self.request_price*self.count
+            flag = 1
+        self.save()
+        self.user.save()
+
+    def conclusion(self): # 이 함수가 알아서  매도, 매수 구별
         if(self.request_flag==1):
             self.buy_conclusion()
         elif(self.request_flag==0):
