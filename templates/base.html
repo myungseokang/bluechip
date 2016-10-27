@@ -18,17 +18,19 @@
         height: 50px;
         padding-top: 30px;
     }
+    a:link { color: black; text-decoration: none;}
+    a:visited { color: black; text-decoration: none;}
+    a:hover { color: black; text-decoration: none;}
 </style>
 </head>
-<body>
   <header>
         <div class="main-header">
-                    Blue chip
+              <a href="{% url 'stock:main' %}">Blue Chip</a>
         </div>
     </header>
     {% if request.user.is_authenticated %}
-  <a href="#">주식</a> <a href="{% url 'stock_analysis:first' %}">주식 분석</a> <a href="{% url 'stock:Balances' %}">잔고</a> <a href="#">대회 공지</a> <a href="#">순위</a>
-  <a href="#">튜토리얼</a> <br>
+    <a href="#">주식</a> <a href="{% url 'stock_analysis:first' %}">주식 분석</a> <a href="{% url 'stock:Balances' %}">잔고</a> <a href="#">대회 공지</a> <a href="#">순위</a>
+    <a href="#">튜토리얼</a> <br>
     {% endif %}
 {% block body %}
 {% endblock %}

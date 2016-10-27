@@ -98,6 +98,9 @@ class Stock(models.Model):
                 request_buy += i.count
             elif i.request_flag == 0 and i.flag==0:
                 request_sell += i.count
+                own_count-=i.count
+            elif i.request_flag == 0 and i.flag==1:
+                own_count-=i.count
         return own_count, request_buy, request_sell
 
 class StockManager(models.Model):
@@ -109,7 +112,7 @@ class StockManager(models.Model):
     when_price = models.PositiveIntegerField(default=0,  help_text="요청 당시의 현재가")
     count = models.PositiveIntegerField(default=0,  help_text="요청 개수")
     flag = models.BooleanField(default=0,  help_text="0:미체결, 1:체결")
-
+    cancel = models.BooleanField(default=0, help_text="취소")
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -125,7 +128,6 @@ class StockManager(models.Model):
         self.request_price = request_price
         self.count = count
         self.save()
-        self.delete()
         return 1
 
     def buy(self, request_price, count):

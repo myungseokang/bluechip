@@ -11,13 +11,16 @@ class InvestUser(AbstractUser):
     money = models.IntegerField(default=100000)
 
     def own_stock(self):
-        flag_1 = InvestUser.objects.get(username=self.username).stockmanager_set.filter(flag=1, user=self)
+        flag_1 = self.stockmanager_set.filter(request_flag=1,flag=1).filter(request_flag=0)
         own_stock = []
         title_name = []
         for i in flag_1:
             if i.stock.title in title_name:
                 number = title_name.index(i.stock.title)
-                own_stock[number]['count']+=i.count
+                if i.request_flag==1 and i.flag==1:
+                    own_stock[number]['count']+=i.count
+                elif i.reques_flag==0:
+                     own_stock[number]['count']-=i.count
                 continue
             context = {
                 'title':i.stock.title,
@@ -31,5 +34,5 @@ class InvestUser(AbstractUser):
         return own_stock
 
     def log_stock(self):
-        log = self.stockmanager_set.filter(user=self).order_by('create_time')
+        log = self.stockmanager_set.filter(user=self).order_by('-create_time')
         return log
