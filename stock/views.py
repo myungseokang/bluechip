@@ -76,7 +76,7 @@ def stock_request(request, code):
 def balances(request):
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
-    print(log_stock)
+    print(own_stock)
     context = {
         'own_stocks':own_stock,
         'log_stocks':log_stock,
