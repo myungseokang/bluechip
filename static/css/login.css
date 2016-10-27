@@ -40,7 +40,7 @@
     .UI{
         margin-top: 30px;
     }
-    .UIInput-input {
+    .UIInput input {
         height: 100%;
         margin-left: 10px;
         border: none;

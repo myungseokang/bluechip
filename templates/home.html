@@ -3,9 +3,7 @@
 {% block title %}bluechip{% endblock %}
 
 {% block stylesheet %}
-    {% block css %}
-        <link rel="stylesheet" href="{% static "css/login.css" %}" type="text/css" />
-    {% endblock %}
+    <link rel="stylesheet" href="{% static "css/login.css" %}" type="text/css" />
 {% endblock %}
 
 {% block body %}
@@ -21,7 +19,7 @@
                         <div class="UI">
                             <div class="UIInput">
                                 <img src="{% static 'id.png' %}" class="login-icon">
-                                <input id="id_username" name="username" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text" required>
+                                {{ form.username }}
                             </div>
                             <br>
                             <hr class="login-line">
@@ -29,7 +27,7 @@
                         <div class="UI">
                             <div class="UIInput">
                                 <img src="{% static 'lock.png' %}" class="login-icon">
-                                <input id="id_password" name="password" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input" type="password" required>
+                                {{ form.password }}
                             </div>
                             <br>
                             <hr class="login-line">
@@ -44,4 +42,13 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            $("#id_username").attr('placeholder', '{{ form.username.label }}');
+            $("#id_password").attr('placeholder', '{{ form.password.label }}');
+        });
+    </script>
 {% endblock %}
