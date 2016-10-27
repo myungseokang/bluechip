@@ -73,6 +73,7 @@ def stock_request(request, code):
             new_stock.conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
 
+
 def balances(request):
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
