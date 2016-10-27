@@ -130,6 +130,9 @@ class StockManager(models.Model):
         return 1
 
     def buy(self, request_price, count):
+        if(request_price==0):
+            self.delete()
+            return "유효한 호가가 아닙니다."
         if (self.user.money-(int(request_price)*int(count))<0):
             self.delete()
             return 'your money : %d\nstock price : %d\nerror' %(self.user.money, int(request_price)*int(count))
