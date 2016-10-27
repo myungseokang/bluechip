@@ -15,18 +15,16 @@ def main(request):
 
 
 def stock_list(request):
-    check = []
-    business = []
-    for stock in Stock.objects.all():
-        if stock.business in check:
-            business[len(business)-1].append({'title':stock.title})
-            continue
-        check.append(stock.business)
-        business.append([{'title':stock.title}])
-    print(check)
-    context={
-        'checks':check,
-        'business':business,
+    stock_ordering = Stock.objects.all().order_by('business')
+    stock_list = []
+
+    for stock in stock_ordering:
+        if stock.business not in stock_list:
+            stock_list.append(stock.business)
+        stock_list.append(stock)
+
+    context = {
+        'stock_list': stock_list,
     }
     return render(request, 'stock/stock_list.html', context)
 

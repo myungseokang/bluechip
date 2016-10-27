@@ -3,7 +3,11 @@
 {% block title %}Stock List{% endblock %}
 
 {% block body %}
-  {% for check in checks %}
-    <h3>{{ check }}</h3>
-  {% endfor %}
+    {% for stock in stock_list %}
+        {% if stock.code %}
+            <h3>{{ stock }}</h3>
+        {% else %}
+            <h1>{{ stock }}</h1>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
