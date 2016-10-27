@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}bluechip{% endblock %}
+
+{% block stylesheet %}
+{% block css %}
+  <link rel="stylesheet" href="{% static "css/login.css" %}" type="text/css" />
+  {% endblock %}
+{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -15,7 +21,7 @@
           <div class="card-body">
               <div class="UI">
                   <div class="UIInput">
-                      <img src="images/id.png" class="login-icon">
+                      <img src="{% static 'id.png' %}" class="login-icon">
                       <input name="id" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text">
                   </div>
                   <br>
@@ -23,7 +29,7 @@
               </div>
               <div class="UI">
                   <div class="UIInput">
-                      <img src="images/lock.png" class="login-icon">
+                      <img src="{% static 'lock.png' %}" class="login-icon">
                       <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input" type="password">
                   </div>
                   <br>

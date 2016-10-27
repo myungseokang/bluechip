@@ -3,7 +3,6 @@
 {% block title %}Stock main{% endblock %}
 
 {% block body %}
-
     <form action="{% url 'stock:search' %}" method="POST">
         {% csrf_token %}
         {{ searchForm.as_p }}
@@ -17,5 +16,4 @@
     1년 <img src="{{ first.year_graph }}" alt="" /> <br>
 
     <a href="{% url 'logout' %}">logout</a>
-
 {% endblock %}

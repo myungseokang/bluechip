@@ -133,3 +133,4 @@ AUTH_USER_MODEL = 'accounts.InvestUser'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+STATIC_URL = '/assets/'
