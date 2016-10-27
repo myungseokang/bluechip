@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic.list import ListView
 
 from .forms import searchForm, requestForm
 from .models import Stock, StockManager
@@ -15,9 +14,21 @@ def main(request):
     return render(request, 'stock/main.html', {"first": first, 'searchForm': search_form})
 
 
-class StockLV(ListView):
-    template_name = 'stock/stock_list.html'
-    model = Stock
+def stock_list(request):
+    check = []
+    business = []
+    for stock in Stock.objects.all():
+        if stock.business in check:
+            business[len(business)-1].append({'title':stock.title})
+            continue
+        check.append(stock.business)
+        business.append([{'title':stock.title}])
+    print(check)
+    context={
+        'checks':check,
+        'business':business,
+    }
+    return render(request, 'stock/stock_list.html', context)
 
 
 def stock_detail(request, code):
