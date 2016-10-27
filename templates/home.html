@@ -1,8 +1,41 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}bluechip{% endblock %}
 
 {% block body %}
+<div class="container">
+  <!--    로그인 카드-->
+      <div></div>
+      <div class="login-card-container">
+
+      <div class="login-card"style="background-image: url(images/logincard.png)no-repeat center center;">
+          <div class="card-header">
+              <p>LOG IN</p>
+          </div>
+          <div class="card-body">
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="images/id.png" class="login-icon">
+                      <input name="id" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="images/lock.png" class="login-icon">
+                      <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input" type="password">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <a id="movetoM">회원가입</a>
+          </div>
+          <div class="card-footer">
+              <button class="login-btn">로그인 하기</button>
+          </div>
+      </div></div>
+  </div>
     <h2>Dicon</h2>
     {{ user.username }}
     <form class="" action="{% url 'auth:login' %}" method="post">{% csrf_token %}

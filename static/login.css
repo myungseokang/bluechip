@@ -1,0 +1,67 @@
+    .container{
+       
+    }
+    /*이 문서만 적용*/
+    
+    .login-card-container{
+        background-image: url(images/logincard.png);
+        margin-top: 70px;
+        margin-right: 70px;
+        width: 600px;
+        height: 400px;
+                text-align: center;
+        float: right;
+
+    }
+    .login-card {
+        margin-left: 10%;
+        margin-right: 10%;
+        width: 500px;
+    }
+    
+    .card-header {
+        font-size: 40px;
+    }
+    
+    .UIInput {
+        height: 20px;
+        float: left;
+    }
+    
+    .login-icon {
+        width: 15px;
+        margin: 0;
+    }
+    
+    .login-line {
+        border-width: 0.5px;
+        border-style: solid;
+    }
+    .UI{
+        margin-top: 30px;
+    }
+    .UIInput-input {
+        height: 100%;
+        margin-left: 10px;
+        border: none;
+        width: 450px;
+        font-size: 15px;
+        line-height: 10%;
+    }
+    
+    *:focus {
+        outline: none;
+    }
+    #movetoM{
+        float: right;
+        font-size: 15px;
+    }
+    .login-btn {
+        margin-top: 70px;
+        font-size: 20px;
+        color: #fff;
+        background-color: #CECECE;
+        width: 100%;
+        border: none;
+        padding: 10px;
+    }

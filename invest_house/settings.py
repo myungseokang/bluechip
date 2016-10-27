@@ -129,3 +129,7 @@ LOGOUT_URL = 'accounts/logout/'
 LOGIN_REDIRECT_URL = '/home'
 
 AUTH_USER_MODEL = 'accounts.InvestUser'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
