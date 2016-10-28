@@ -7,12 +7,15 @@
 통장 잔액 : {{ request.user.money }}
 <table>
   <tr>
-    <th>날짜</th> <th>형태</th> <th>주식이름</th>  <th>신청개수</th> <th>총액</th><th>상태</th> <th>잔액</th>
+    <th>날짜</th> <th>형태</th> <th>주식이름</th> <th>매도/매수</th> <th>신청가</th> <th>신청개수</th>
+    <th>신청총액</th><th>상태</th> <th>통장 잔액</th>
   </tr>
   {% for stock in  stock_balances %}
   <tr>
-    <td>{{ stock.create_time|date:"y/m/d" }}</td> <td>{% if stock.request_flag %}매도{% else %}매수{% endif %}</td>
-    <td>{{ stock.stock.title }}</td>  <td>{{ stock.count }}</td> <td>{{ stock.total_price }}</td> <td>{% if stock.flag %}체결{% else %}미체결{% endif %}</td>
+    <td>{{ stock.create_time|date:"y/m/d" }}</td> <td>{% if stock.request_flag %}출금{% else %}입금{% endif %}</td>
+    <td><a href="{% url 'stock:stock_detail' stock.stock.code %}">{{ stock.stock.title }}</a></td>  <td>{% if stock.request_flag %}매수{% else %}매도{% endif %}</td>
+    <td>{{ stock.request_price }}</td>
+    <td>{{ stock.count }}</td> <td>{{ stock.total_price }}</td> <td>{% if stock.flag %}체결{% else %}미체결{% endif %}</td>
     <td>{{ stock.user_money }}</td>
   </tr>
   {% endfor %}
