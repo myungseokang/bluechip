@@ -22,4 +22,4 @@ class Sign_up(CreateView):
         if(request.user.is_authenticated):
             return HttpResponseRedirect(reverse('stock:main'))
         else:
-            return render(request, 'Sign_up.html', {'form':Sing_upForm})
+            return render(request, 'Sign_up.html', {'form': Sing_upForm})

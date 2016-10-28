@@ -20,7 +20,7 @@ class Sing_upForm(forms.ModelForm):
     class Meta:
         model = InvestUser
         fields = ['nickname', 'username']
-        labes = {
+        labels = {
             "username":"아이디",
         }
     #def __init__(self, *args, **kwargs):

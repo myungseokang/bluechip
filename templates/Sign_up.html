@@ -4,55 +4,68 @@
 
 {% load static %}
 {% block stylesheet %}
-<link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
+    <link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
 {% endblock %}
 
 
 {% block body %}
-<div class="container">
-  <!--    로그인 카드-->
-      <div class="login-card-container">
-      <div class="login-card">
-          <div class="card-header">
-              <p>Membership</p>
-          </div>
-          <div class="card-body">
-            <div class="UI">
-                <div class="UIInput">
-                    <img src="{% static 'nickname.png' %}" class="login-icon">
-                    <input name="id" spellcheck="false" autocorrect="off" placeholder="닉네임" class="UIInput-input" type="text">
+    <div class="container">
+        <!--    로그인 카드-->
+        <div class="login-card-container">
+            <div class="login-card">
+                <div class="card-header">
+                    <p>Membership</p>
                 </div>
-                <br>
-                <hr class="login-line">
-            </div>
-              <div class="UI">
-                  <div class="UIInput">
-                      <img src="{% static 'id.png' %}" class="login-icon">
-                      <input name="id" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text">
-                  </div>
-                  <br>
-                  <hr class="login-line">
-              </div>
-              <div class="UI">
-                  <div class="UIInput">
-                      <img src="{% static 'lock.png' %}" class="login-icon">
-                      <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input"type="password">
-                  </div>
-                  <br>
-                  <hr class="login-line">
-              </div>
-              <div class="UI">
-                  <div class="UIInput">
-                      <img src="{% static 'lock.png' %}" class="login-icon">
-                      <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호 확인" class="UIInput-input" type="password">
-                  </div>
-                  <br>
-                  <hr class="login-line">
-              </div>
-          </div>
-          <div class="card-footer">
-              <button class="login-btn">회원가입</button>
-          </div>
-      </div></div>
-  </div>
+                <form action="{% url 'sign-up' %}" method="POST">{% csrf_token %}
+                    <div class="card-body">
+                        <div class="UI">
+                            <div class="UIInput">
+                                <img src="{% static 'nickname.png' %}" class="login-icon">
+                                {{ form.nickname }}
+                            </div>
+                            <br>
+                            <hr class="login-line">
+                        </div>
+                        <div class="UI">
+                            <div class="UIInput">
+                                <img src="{% static 'id.png' %}" class="login-icon">
+                                {{ form.username }}
+                            </div>
+                            <br>
+                            <hr class="login-line">
+                        </div>
+                        <div class="UI">
+                            <div class="UIInput">
+                                <img src="{% static 'lock.png' %}" class="login-icon">
+                                {{ form.password1 }}
+                            </div>
+                            <br>
+                            <hr class="login-line">
+                        </div>
+                        <div class="UI">
+                            <div class="UIInput">
+                                <img src="{% static 'lock.png' %}" class="login-icon">
+                                {{ form.password2 }}
+                            </div>
+                            <br>
+                            <hr class="login-line">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="login-btn" value="회원가입" />
+                    </div>
+                </form>
+            </div></div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function(){
+            $("#id_nickname").attr('placeholder', '{{ form.nickname.label }}');
+            $("#id_username").attr('placeholder', '{{ form.username.label }}');
+            $("#id_password1").attr('placeholder', '{{ form.password1.label }}');
+            $("#id_password2").attr('placeholder', '{{ form.password2.label }}');
+        });
+    </script>
 {% endblock %}
