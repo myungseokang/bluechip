@@ -19,7 +19,7 @@ def stock_list(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
 
-    stock_ordering = Stock.objects.all().order_by('business')
+    stock_ordering = Stock.objects.all()#.order_by('business')
     stock_list = []
 
     for stock in stock_ordering:
