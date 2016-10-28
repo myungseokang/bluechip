@@ -1,15 +1,58 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Sing_up</title>
-  </head>
-  <body>
-    <h2>Dicon</h2>
-    <form class="" action="{% url 'sign-up' %}" method="post">
-      {% csrf_token %}
-      {{form.as_p}}
-      <input type="submit" name="name" value="회원가입">
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Sing-up{% endblock %}
+
+{% load static %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  <!--    로그인 카드-->
+      <div class="login-card-container">
+      <div class="login-card">
+          <div class="card-header">
+              <p>Membership</p>
+          </div>
+          <div class="card-body">
+            <div class="UI">
+                <div class="UIInput">
+                    <img src="{% static 'nickname.png' %}" class="login-icon">
+                    <input name="id" spellcheck="false" autocorrect="off" placeholder="닉네임" class="UIInput-input" type="text">
+                </div>
+                <br>
+                <hr class="login-line">
+            </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'id.png' %}" class="login-icon">
+                      <input name="id" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'lock.png' %}" class="login-icon">
+                      <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input"type="password">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'lock.png' %}" class="login-icon">
+                      <input name="id" spellcheck="false" autocorrect="off" placeholder="비밀번호 확인" class="UIInput-input" type="password">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+          </div>
+          <div class="card-footer">
+              <button class="login-btn">회원가입</button>
+          </div>
+      </div></div>
+  </div>
+{% endblock %}
