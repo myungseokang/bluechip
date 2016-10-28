@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from .forms import searchForm, requestForm
 from .models import Stock, StockManager
+from django.db.models import Q
 
 def main(request):
     if(not request.user.is_authenticated):
@@ -98,17 +99,16 @@ def stock_request(request, code):
             new_stock.conclusion()
     return HttpResponseRedirect(reverse('stock:Balances'))
 
-
 def balances(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
-
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
-    print(own_stock)
+    stock_balances = StockManager.objects.filter(Q(request_flag=0, flag=1) | Q(request_flag=1)).order_by('-create_time')
     context = {
         'own_stocks':own_stock,
         'log_stocks':log_stock,
         'searchForm':searchForm(),
+        'stock_balances':stock_balances
     }
     return render(request, 'stock/Balances.html', context)

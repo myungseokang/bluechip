@@ -102,16 +102,20 @@ class Stock(models.Model):
                 own_count-=i.count
         return own_count, request_buy, request_sell
 
+
+
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
 
     request_flag = models.BooleanField(default=0,  help_text="요청 종류 0:매도, 1:매수")
     request_price = models.PositiveIntegerField(default=0,  help_text="요청 가격")
-    when_price = models.PositiveIntegerField(default=0,  help_text="요청 당시의 현재가")
     count = models.PositiveIntegerField(default=0,  help_text="요청 개수")
+    total_price = models.PositiveIntegerField(default=0, help_text="요청(가격X개수)")
+    when_price = models.PositiveIntegerField(default=0,  help_text="요청 당시의 현재가")
     flag = models.BooleanField(default=0,  help_text="0:미체결, 1:체결")
     cancel = models.BooleanField(default=0, help_text="취소")
+    user_money = models.PositiveIntegerField(default=0, help_text="신청 당시의 유저 금액")
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -122,10 +126,12 @@ class StockManager(models.Model):
         if (own_count-count<0):
             self.delete()
             return "매도량>보유 주식"
+        self.user_money = self.user.money
         self.request_flag = 0
         self.when_price = self.stock.price
         self.request_price = request_price
         self.count = count
+        self.total_price = request_price*count
         self.save()
         return 1
 
@@ -141,6 +147,8 @@ class StockManager(models.Model):
         self.request_price = request_price
         self.count = count
         self.user.money-=(int(request_price)*int(count))
+        self.user_money = self.user.money
+        self.total_price = request_price*count
         self.save()
         self.user.save()
         return 1

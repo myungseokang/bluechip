@@ -5,6 +5,18 @@
 {% block body %}
 <br><br>
 통장 잔액 : {{ request.user.money }}
+<table>
+  <tr>
+    <th>날짜</th> <th>형태</th> <th>주식이름</th>  <th>신청개수</th> <th>총액</th><th>상태</th> <th>잔액</th>
+  </tr>
+  {% for stock in  stock_balances %}
+  <tr>
+    <td>{{ stock.create_time|date:"y/m/d" }}</td> <td>{% if stock.request_flag %}매도{% else %}매수{% endif %}</td>
+    <td>{{ stock.stock.title }}</td>  <td>{{ stock.count }}</td> <td>{{ stock.total_price }}</td> <td>{% if stock.flag %}체결{% else %}미체결{% endif %}</td>
+    <td>{{ stock.user_money }}</td>
+  </tr>
+  {% endfor %}
+</table>
 
 <h3>보유 주식</h3>
 <table>
@@ -23,21 +35,20 @@
 <h3>주식 현황</h3>
 <table>
   <tr>
-   <th>종류</th> <th>종목 이름</th>  <th>신청가</th> <th>신청개수</th> <th>현재가</th> <th>상태</th>
+   <th>종류</th> <th>종목 이름</th>  <th>신청가</th> <th>신청개수</th> <th>상태</th>
   </tr>
   {% for log_stock in log_stocks %}
   <tr>
     <td>
       {% if log_stock.request_flag %}
-        매수
-      {% else %}
         매도
+      {% else %}
+        매수
       {% endif %}
     </td>
   <td>{{ log_stock.stock.title }}</td>
   <td>{{ log_stock.request_price }}</td>
   <td>{{ log_stock.count }}</td>
-  <td>{{ log_stock.stock.price }}</td>
     <td>
       {% if log_stock.flag %}
         체결
