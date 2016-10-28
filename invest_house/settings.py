@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'stock',
     'django_extensions',
     'stock_analysis',
+    'django_cron',
+]
+
+CRON_CLASSES = [
+    "stock.cron.reset",
 ]
 
 MIDDLEWARE = [
