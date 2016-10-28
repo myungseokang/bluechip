@@ -11,3 +11,4 @@ py==1.4.31
 requests==2.11.1
 six==1.10.0
 stevedore==1.18.0
+django-cron==0.5.0
