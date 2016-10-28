@@ -3,10 +3,6 @@
 {% block title %}Stock main{% endblock %}
 
 {% block body %}
-    <form action="{% url 'stock:search' %}" method="POST">
-        {% csrf_token %}
-        {{ searchForm.as_p }}
-    </form>
 
     <a href="{% url 'stock:stock_detail' first.code %}">{{ first.title }}</a>
     {{ first.price }} <br>

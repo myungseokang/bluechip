@@ -5,7 +5,7 @@
 {% block body %}
     {% for stock in stock_list %}
         {% if stock.code %}
-            <h3>{{ stock }}</h3>
+            {{ stock }} <br>
         {% else %}
             <h1>{{ stock }}</h1>
         {% endif %}

@@ -157,15 +157,17 @@ class StockManager(models.Model):
         self.save()
 
     def sell_conclusion(self):
+        if(self.flag==1):
+            return
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
             self.user.money += self.request_price*self.count
-            flag = 1
+            self.flag = 1
         if((self.stock.price>self.request_price and self.when_price<self.request_price)):
             self.user.money += self.request_price*self.count
-            flag = 1
+            self.flag = 1
         elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
             self.user.money += self.request_price*self.count
-            flag = 1
+            self.flag = 1
         self.save()
         self.user.save()
 

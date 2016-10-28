@@ -20,15 +20,20 @@
     }
     a:link { color: black; text-decoration: none;}
     a:visited { color: black; text-decoration: none;}
-    a:hover { color: black; text-decoration: none;}
+    a:hover { color: black; text-decoration: underline;}
 </style>
 </head>
+<body>
   <header>
         <div class="main-header">
               <a href="{% url 'stock:main' %}">Blue Chip</a>
         </div>
     </header>
     {% if request.user.is_authenticated %}
+    <form action="{% url 'stock:search' %}" method="POST">
+        {% csrf_token %}
+        {{ searchForm.as_p }}
+    </form>
     <a href="{% url 'stock:list' %}">주식</a> <a href="{% url 'stock_analysis:first' %}">주식 분석</a> <a href="{% url 'stock:Balances' %}">잔고</a> <a href="#">대회 공지</a> <a href="#">순위</a>
     <a href="#">튜토리얼</a> <br>
     {% endif %}

@@ -39,6 +39,7 @@ def stock_detail(request, code):
         return HttpResponseRedirect(reverse('home'))
 
     stock = Stock.objects.get(code=code)
+    stock.stock_reset()
     buy_prices, sell_price = stock.asking_price()
     own_count, request_buy,request_sell=stock.about_stock(request.user)
     context = {
@@ -101,7 +102,7 @@ def stock_request(request, code):
 def balances(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
-        
+
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
     print(own_stock)

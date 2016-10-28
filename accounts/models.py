@@ -37,4 +37,7 @@ class InvestUser(AbstractUser):
 
     def log_stock(self):
         log = self.stockmanager_set.filter(user=self).order_by('-create_time')
+        for stock in log:
+            stock.stock.stock_reset()
+            stock.conclusion()
         return log

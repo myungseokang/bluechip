@@ -1,8 +1,8 @@
     .container{
-       
+
     }
     /*이 문서만 적용*/
-    
+
     .login-card-container{
         background-image: url(images/logincard.png);
         margin-top: 70px;
@@ -18,21 +18,21 @@
         margin-right: 10%;
         width: 500px;
     }
-    
+
     .card-header {
         font-size: 40px;
     }
-    
+
     .UIInput {
         height: 20px;
         float: left;
     }
-    
+
     .login-icon {
         width: 15px;
         margin: 0;
     }
-    
+
     .login-line {
         border-width: 0.5px;
         border-style: solid;
@@ -48,7 +48,7 @@
         font-size: 15px;
         line-height: 10%;
     }
-    
+
     *:focus {
         outline: none;
     }
