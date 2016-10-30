@@ -3,7 +3,8 @@
 {% block title %}Stock Trade{% endblock %}
 
 {% block body %}
-  <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상한가</a></h3>
+  <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
+  <h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
   {% for stock in increase_list %}
     {{ forloop.counter }} {{ stock.title }} {{ stock.change }}<br>
   {% endfor %}

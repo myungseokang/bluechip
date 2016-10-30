@@ -29,4 +29,8 @@ def increase(request):
     return render(request, 'stock_analysis/increase.html', context)
 
 def decrease(request):
-    return render(request, 'stock_analysis/decrease.html')
+    decrease_list = Stock.objects.filter(change__lt=0).order_by('change')
+    context = {
+        'decrease_list':decrease_list,
+    }
+    return render(request, 'stock_analysis/decrease.html', context)
