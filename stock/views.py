@@ -102,9 +102,13 @@ def stock_request(request, code):
 def balances(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
+    if request.method == 'POST':
+        if request.POST['request_cancel'] == '취소':
+            stock = StockManager.objects.get(pk=int(request.POST['stock']))
+            stock.cancel()
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
-    stock_balances = StockManager.objects.filter(Q(request_flag=0, flag=1) | Q(request_flag=1)).order_by('-create_time')
+    stock_balances = StockManager.objects.filter(Q(request_flag=0, flag=1) | Q(request_flag=1) | Q(request_cancel=1)).order_by('-create_time')
     context = {
         'own_stocks':own_stock,
         'log_stocks':log_stock,

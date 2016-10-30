@@ -114,7 +114,7 @@ class StockManager(models.Model):
     total_price = models.PositiveIntegerField(default=0, help_text="요청(가격X개수)")
     when_price = models.PositiveIntegerField(default=0,  help_text="요청 당시의 현재가")
     flag = models.BooleanField(default=0,  help_text="0:미체결, 1:체결")
-    cancel = models.BooleanField(default=0, help_text="취소")
+    request_cancel = models.BooleanField(default=0, help_text="취소")
     user_money = models.PositiveIntegerField(default=0, help_text="신청 당시의 유저 금액")
     create_time = models.DateTimeField(auto_now_add=True)
 
@@ -184,3 +184,27 @@ class StockManager(models.Model):
             self.buy_conclusion()
         elif(self.request_flag==0):
             self.sell_conclusion()
+
+    def buy_cancel(self):
+        if(self.request_flag!=1 and self.flag!=1 and self.request_cancel!=1):
+            return
+        self.user.money += self.total_price
+        self.request_cancel = 1
+        self.user.save()
+        self.save()
+        StockManager.objects.create(user=self.user, stock=self.stock, request_flag=0,
+            request_price=self.request_price, count=self.count, total_price=self.total_price,
+            request_cancel=1, user_money=self.user.money
+        )
+
+    def sell_cancel(self):
+        if(self.request_flag!=0 and self.flag!=1 and self.request_cancel!=1):
+            return
+        self.request_cancel = 1
+        self.save()
+
+    def cancel(self):
+        if(self.request_flag==1 and self.flag!=1 and self.request_cancel!=1):
+            self.buy_cancel()
+        elif(self.request_flag==0 and self.flag!=1 and self.request_cancel!=1):
+            self.sell_cancel()

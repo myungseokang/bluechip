@@ -12,7 +12,7 @@ class InvestUser(AbstractUser):
     money = models.IntegerField(default=100000)
 
     def own_stock(self):
-        flag_1 = self.stockmanager_set.filter(Q(request_flag=1,flag=1) | Q(request_flag=0, flag=1))
+        flag_1 = self.stockmanager_set.filter(Q(request_flag=1,flag=1) | Q(request_flag=0, flag=1)).exclude(request_cancel=1)
         print(flag_1)
         own_stock = []
         title_name = []
@@ -36,7 +36,7 @@ class InvestUser(AbstractUser):
         return own_stock
 
     def log_stock(self):
-        log = self.stockmanager_set.filter(user=self).order_by('-create_time')
+        log = self.stockmanager_set.filter(user=self).exclude(request_cancel=1).order_by('-create_time')
         for stock in log:
             stock.stock.stock_reset()
             stock.conclusion()
