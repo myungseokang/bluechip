@@ -87,7 +87,7 @@ class Stock(models.Model):
         return buy_prices, sell_prices
 
     def about_stock(self, user):
-        user_stock = self.stockmanager_set.filter(user=user, stock=self)
+        user_stock = self.stockmanager_set.filter(user=user, stock=self).exclude(request_cancel=1)
         print(user_stock)
         own_count  = request_buy = request_sell = 0
         for i in user_stock:
@@ -200,8 +200,7 @@ class StockManager(models.Model):
     def sell_cancel(self):
         if(self.request_flag!=0 and self.flag!=1 and self.request_cancel!=1):
             return
-        self.request_cancel = 1
-        self.save()
+        self.delete()
 
     def cancel(self):
         if(self.request_flag==1 and self.flag!=1 and self.request_cancel!=1):
