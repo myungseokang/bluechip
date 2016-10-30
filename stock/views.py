@@ -104,7 +104,7 @@ def balances(request):
         return HttpResponseRedirect(reverse('home'))
     if request.method == 'POST':
         if request.POST['request_cancel'] == '취소':
-            stock = StockManager.objects.get(pk=int(request.POST['stock']))
+            stock = StockManager.objects.get(pk=int(request.POST.get('stock')))
             stock.cancel()
     own_stock = request.user.own_stock()
     log_stock = request.user.log_stock()
