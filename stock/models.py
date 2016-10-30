@@ -102,8 +102,6 @@ class Stock(models.Model):
                 own_count-=i.count
         return own_count, request_buy, request_sell
 
-
-
 class StockManager(models.Model):
     user = models.ForeignKey(InvestUser, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stock)
@@ -184,6 +182,12 @@ class StockManager(models.Model):
             self.buy_conclusion()
         elif(self.request_flag==0):
             self.sell_conclusion()
+
+    """
+    모든 주식 취소는 flag=0일 경우 가능합니다.
+    매수는 취소해도 돈의 이동이 존재하기 때문에 레코드는 삭제하지 않습니다.
+    매도는 취소하면 돈의 이동이 존재하지 않기 때문에 레코드는 삭제됩니다.
+    """
 
     def buy_cancel(self):
         if(self.request_flag!=1 and self.flag!=1 and self.request_cancel!=1):

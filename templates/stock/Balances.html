@@ -1,8 +1,78 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block title %}Stock Balances{% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
+            <div class="row">
+                <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                    <div class="blog-post" style="background-color: #fff;">
+                        <h4 class="blog-post-title" style="background-color: #F8F0ED;">
+                          <span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">체결현황</span></h4>
+                        <ul class="nav nav-pills">
+                            <li role="presentation"><a href="#">주식이름</a></li>
+                            <li role="presentation"><a href="#">종류</a></li>
+                            <li role="presentation"><a href="#">신청가</a></li>
+                            <li role="presentation"><a href="#">신청총액</a></li>
+                            <li role="presentation"><a href="#">상태</a></li>
+                            <li role="presentation"><a href="#">취소</a></li>
+                        </ul>
+                        {% for log_stock in log_stocks %}
+                        <ul class="nav nav-pills">
+                            <li role="presentation"><a href="#">{{ log_stock.stock.title }}</a></li>
+                            <li role="presentation"><a href="#">{% if log_stock.request_flag %}매수{% else %}매도{% endif %}</a></li>
+                            <li role="presentation"><a href="#">{{ log_stock.request_price }}</a></li>
+                            <li role="presentation"><a href="#">{{ log_stock.total_price }}</a></li>
+                            <li role="presentation"><a href="#">{% if log_stock.flag %}체결{% else %}미체결{% endif %}</a></li>
+                            <li role="presentation">
+                              {% if not log_stock.flag %}
+                            <form action="{% url 'stock:Balances' %}" method="post">
+                              {% csrf_token %}
+                              <input type="hidden" name="stock" value="{{ log_stock.id }}">
+                              <td><input type="submit" name="request_cancel" value="취소"></td>
+                            </form>
+                            {% endif %}
+                          </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                    <!-- /.blog-post -->
+                </div>
+                <!-- /.blog-main -->
+                <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                    <div class="sidebar-module sidebar-module-inset" style="margin-bottom: 30px;background-color: #fff;">
+                        <h4 style="background-color: #F8F0ED;">
+                          <span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">내 잔고</span></h4>
+                          <hr>
+                          <div style="padding-right: 5%;padding-left: 5%;padding-bottom: 5%;">
+                        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                    </div></div>
+                    <div class="sidebar-module" style="background-color: #fff;">
+                        <h4 style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">보유주식</span></h4> <hr>
+                        <div style="padding-right: 5%;padding-left: 5%;padding-bottom: 5%;">
+                        <ol class="list-unstyled">
+                            <li><a href="http://getbootstrap.com/examples/blog/#">March 2014</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">February 2014</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">January 2014</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">December 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">November 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">October 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">September 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">August 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">July 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">June 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">May 2013</a></li>
+                            <li><a href="http://getbootstrap.com/examples/blog/#">April 2013</a></li>
+                        </ol>
+                    </div></div>
+                </div>
+                <!-- /.blog-sidebar -->
+            </div>
+        </div>
+    </div>
+</div>
 <br><br>
 통장 잔액 : {{ request.user.money }}
 <table>
