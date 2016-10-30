@@ -19,7 +19,7 @@ def main(request):
             stock_business.append(stock.business)
 
     business = request.GET.get('business')
-    if(business!=''):
+    if(business!=None):
         stocks = Stock.objects.filter(business=business)
     else:
         business='건설업'
