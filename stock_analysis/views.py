@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from stock.models import Stock
+from stock.forms import searchForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -18,6 +19,7 @@ def trade(request):
         trade_list = paginator.page(paginator.num_pages)
     context = {
         'trade_list':trade_list,
+        'searchForm':searchForm(),
     }
     return render(request, 'stock_analysis/trade.html', context)
 
@@ -25,6 +27,7 @@ def increase(request):
     increase_list = Stock.objects.filter(change__gt=0).order_by('-change')
     context = {
         'increase_list':increase_list,
+        'searchForm':searchForm(),
     }
     return render(request, 'stock_analysis/increase.html', context)
 
@@ -32,5 +35,6 @@ def decrease(request):
     decrease_list = Stock.objects.filter(change__lt=0).order_by('change')
     context = {
         'decrease_list':decrease_list,
+        'searchForm':searchForm(),
     }
     return render(request, 'stock_analysis/decrease.html', context)

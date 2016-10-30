@@ -7,16 +7,8 @@ from .forms import searchForm, requestForm
 from .models import Stock, StockManager
 from django.db.models import Q
 
+
 def main(request):
-    if(not request.user.is_authenticated):
-        return HttpResponseRedirect(reverse('home'))
-    search_form = searchForm()
-    # 현재가가 가장 높은 주식
-    first = Stock.objects.all().order_by('-price')[0]
-    return render(request, 'stock/main.html', {"first": first, 'searchForm': search_form})
-
-
-def stock_list(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
 
@@ -32,8 +24,7 @@ def stock_list(request):
         'stock_list': stock_list,
         'searchForm':searchForm(),
     }
-    return render(request, 'stock/stock_list.html', context)
-
+    return render(request, 'stock/main.html', context)
 
 def stock_detail(request, code):
     if(not request.user.is_authenticated):

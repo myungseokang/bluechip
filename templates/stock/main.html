@@ -3,13 +3,11 @@
 {% block title %}Stock main{% endblock %}
 
 {% block body %}
-
-    <a href="{% url 'stock:stock_detail' first.code %}">{{ first.title }}</a>
-    {{ first.price }} <br>
-    1일 <img src="{{ first.today_graph}}" alt="" /> <br>
-    1개월 <img src="{{ first.month_graph}}" alt="" /> <br>
-    3개월 <img src="{{ first.three_month_graph}}" alt="" /> <br>
-    1년 <img src="{{ first.year_graph }}" alt="" /> <br>
-
-    <a href="{% url 'logout' %}">logout</a>
+    {% for stock in stock_list %}
+        {% if stock.code %}
+            {{ stock }} <br>
+        {% else %}
+            <h1>{{ stock }}</h1>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
