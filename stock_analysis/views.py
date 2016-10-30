@@ -16,14 +16,17 @@ def trade(request):
         trade_list = paginator.page(1)
     except EmptyPage:
         trade_list = paginator.page(paginator.num_pages)
-    page_start = paginator.start_index()/10 * 10
     context = {
         'trade_list':trade_list,
     }
     return render(request, 'stock_analysis/trade.html', context)
 
 def increase(request):
-    return render(request, 'stock_analysis/increase.htm')
+    increase_list = Stock.objects.filter(change__gt=0).order_by('-change')
+    context = {
+        'increase_list':increase_list,
+    }
+    return render(request, 'stock_analysis/increase.html', context)
 
 def decrease(request):
     return render(request, 'stock_analysis/decrease.html')
