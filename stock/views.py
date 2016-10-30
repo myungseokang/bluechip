@@ -11,18 +11,24 @@ from django.db.models import Q
 def main(request):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
+    stocks = Stock.objects.all()
+    stock_business = []
 
-    stock_ordering = Stock.objects.all()#.order_by('business')
-    stock_list = []
+    for stock in stocks:
+        if stock.business not in stock_business:
+            stock_business.append(stock.business)
 
-    for stock in stock_ordering:
-        if stock.business not in stock_list:
-            stock_list.append(stock.business)
-        stock_list.append(stock)
-
+    business = request.GET.get('business')
+    if(business!=''):
+        stocks = Stock.objects.filter(business=business)
+    else:
+        business='건설업'
+        stocks = Stock.objects.filter(business=business)
     context = {
-        'stock_list': stock_list,
+        'business':business,
+        'stock_business': stock_business,
         'searchForm':searchForm(),
+        'stocks':stocks
     }
     return render(request, 'stock/main.html', context)
 

@@ -3,11 +3,12 @@
 {% block title %}Stock main{% endblock %}
 
 {% block body %}
-    {% for stock in stock_list %}
-        {% if stock.code %}
-            {{ stock }} <br>
-        {% else %}
-            <h1>{{ stock }}</h1>
-        {% endif %}
+    {% for stock in stock_business %}
+        <a href="?business={{ stock }}">{{ stock }}</a> <br>
+    {% endfor %}
+
+    <h3>{{ business }}</h3>
+    {% for stock in stocks%}
+      {{stock.title}} <br>
     {% endfor %}
 {% endblock %}
