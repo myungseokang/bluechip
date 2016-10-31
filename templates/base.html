@@ -4,45 +4,52 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     {% block stylesheet %}{% endblock %}
-    <style>
-    /*파일 분리할 것*/
-    /*전체적용*/
-    body {
-        margin: 0;
-    }
-    .main-header {
-        font-size: 30px;
-        color: #fff;
-        text-align: center;
-        background-color: #3337D3;
-        height: 50px;
-        padding-top: 30px;
-    }
-    a:link { color: black; text-decoration: none;}
-    a:visited { color: black; text-decoration: none;}
-    a:hover { color: black; text-decoration: underline;}
-    nav {
-       width: 470px;
-       margin: 0 auto
-    }
-</style>
+    {% load static %}
+    <link href="{% static 'Dashboard Template for Bootstrap_files/bootstrap-combined.min.css' %}" rel="stylesheet" id="bootstrap-css">
+    <link href="{% static "Dashboard Template for Bootstrap_files/bootstrap.min.js" %}" rel="stylesheet">
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />');
+            else $('head > link').filter(':first').replaceWith(defaultCSS);
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height());
+          window.parent.postMessage( iframe_height, 'http://bootsnipp.com');
+        });
+    </script>
 </head>
-<body>
-  <header>
-        <div class="main-header">
-              <a href="{% url 'stock:main' %}">Blue Chip</a>
-        </div>
-    </header>
+<body style="background-color:#F8F0ED">
+  <div style="height: 120px;padding-bottom: 1px;background-color: #333FD3;color: #fff;padding-top: 10px;padding-left: 10px;padding-right: 10px;">
     {% if request.user.is_authenticated %}
-    <form action="{% url 'stock:search' %}" method="POST">
-        {% csrf_token %}
-        {{ searchForm.as_p }}
-    </form>
+    <div style="float: right;"> <span style="padding-right: 5px;">{{ request.user.nickname }}</span>
+      <span style="padding-left: 10px;border-left-style: solid;border-width: 1px;"><a href="{% url 'logout' %}">로그아웃</a></span>
+    </div>
+    {% endif %}
+    <div style="position: relative;text-align: center;font-size: 60px;margin-top: 20px;">
+      <a href="{% url 'stock:main' %}"><img src="{% static 'logo.png' %}" style="top: -8px;bottom: 0px;position: absolute;height: 100px;width: 215px;E/* left: 1px; */"></a>
+    Blue chip </div>
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'stock:search' %}" method="POST" style="margin: 0px;float: right;">
+      {% csrf_token %}
+        <input id='id_title' name='title'type="text" class="form-control" placeholder="검색" style="
+    border-width: 1px;
+    /* border: 1px; */
+    width: 200px;
+    background-color: #333FD3;
+    border: none;
+    border-bottom-style: solid;
+    border-color: #fff;">
+  </form>
+  {% endif %}
+</div>
+{% if request.user.is_authenticated %}
     <nav>
       <b><a href="{% url 'stock:main' %}">주식</a> | <a href="{% url 'stock_analysis:first' %}">주식 분석</a> | <a href="{% url 'stock:Balances' %}">잔고</a> |
        <a href="{% url 'stock:ranking' %}">순위</a> | <a href="#">대회 공지</a> | <a href="#">튜토리얼</a> | <a href="#">용어 사전</a> <br></b>
     </nav>
-    {% endif %}
+{% endif %}
     {% block body %}
     {% endblock %}
 </body>

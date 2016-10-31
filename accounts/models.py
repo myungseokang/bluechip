@@ -13,10 +13,8 @@ class InvestUser(AbstractUser):
     total_money = models.IntegerField(default=0, help_text="보유 주식 가치 + money")
     take_count = models.PositiveIntegerField(default=0, help_text="보유 주식의 수")
 
-
     def own_stock(self):
         flag_1 = self.stockmanager_set.filter(Q(request_flag=1,flag=1) | Q(request_flag=0, flag=1)).exclude(request_cancel=1)
-        print(flag_1)
         own_stock = []
         title_name = []
         for i in flag_1:

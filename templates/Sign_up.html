@@ -1,14 +1,40 @@
-{% extends 'base.html' %}
-
-{% block title %}Sing-up{% endblock %}
-
-{% load static %}
-{% block stylesheet %}
+<!DOCTYPE html>
+<!--css가 꼬여서 상속을 안함-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
     <link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
-{% endblock %}
-
-
-{% block body %}
+    <style>
+    /*파일 분리할 것*/
+    /*전체적용*/
+    body {
+        margin: 0;
+    }
+    .main-header {
+        font-size: 30px;
+        color: #fff;
+        text-align: center;
+        background-color: #3337D3;
+        height: 50px;
+        padding-top: 30px;
+    }
+    a:link { color: black; text-decoration: none;}
+    a:visited { color: black; text-decoration: none;}
+    a:hover { color: black; text-decoration: underline;}
+    nav {
+       width: 470px;
+       margin: 0 auto
+    }
+</style>
+  </head>
+  <body>
+    <header>
+          <div class="main-header">
+                <a href="{% url 'stock:main' %}">Blue Chip</a>
+          </div>
+      </header>
     <div class="container">
         <!--    로그인 카드-->
         <div class="login-card-container">
@@ -57,15 +83,13 @@
                 </form>
             </div></div>
     </div>
-{% endblock %}
-
-{% block javascript %}
-    <script>
-        $(document).ready(function(){
-            $("#id_nickname").attr('placeholder', '{{ form.nickname.label }}');
-            $("#id_username").attr('placeholder', '{{ form.username.label }}');
-            $("#id_password1").attr('placeholder', '{{ form.password1.label }}');
-            $("#id_password2").attr('placeholder', '{{ form.password2.label }}');
-        });
-    </script>
-{% endblock %}
+  </body>
+  <script>
+      $(document).ready(function(){
+          $("#id_nickname").attr('placeholder', '{{ form.nickname.label }}');
+          $("#id_username").attr('placeholder', '{{ form.username.label }}');
+          $("#id_password1").attr('placeholder', '{{ form.password1.label }}');
+          $("#id_password2").attr('placeholder', '{{ form.password2.label }}');
+      });
+  </script>
+</html>

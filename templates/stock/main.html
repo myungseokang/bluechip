@@ -3,12 +3,39 @@
 {% block title %}Stock main{% endblock %}
 
 {% block body %}
-    {% for stock in stock_business %}
-        <a href="?business={{ stock }}">{{ stock }}</a> <br>
-    {% endfor %}
+<div id="content" class="row-fluid" >
+<div class="span2 sidebar" >
+    <ul class="nav nav-tabs nav-stacked" style="background-color: #fff;">
+      {% for stock in stock_business %}
+          <li><a href="?business={{ stock }}">{{ stock }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="span8 main" style="
+background-color: #fff;
+">
+    <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>종목</th>
+                    <th>현재가</th>
+                    <th>등락률</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for stock in stocks%}
+              <tr>
+                <td><a href="{% url 'stock:stock_detail' stock.code %}">{{stock.title}}</a></td>
+                <td>{{ stock.price }}</td>
+                <td>{{ stock.change }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+  </div>
+  <td>John</td>
+  <td>Doe</td>
+  <td>john@example.com</td>
+  {{ business }}
 
-    <h3>{{ business }}</h3>
-    {% for stock in stocks%}
-      {{stock.title}} <br>
-    {% endfor %}
 {% endblock %}
