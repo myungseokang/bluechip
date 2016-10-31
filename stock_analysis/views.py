@@ -27,8 +27,17 @@ def trade(request):
 
 def increase(request):
     increase_list = Stock.objects.filter(change__gt=0).order_by('-change')
+    paginator = Paginator(increase_list, 30)
+    page = request.GET.get('page', '')
+    try:
+        increase_page = paginator.page(page)
+    except PageNotAnInteger:
+        increase_page = paginator.page(1)
+    except EmptyPage:
+        increase_page = paginator.page(paginator.num_pages)
     context = {
-        'increase_list': increase_list,
+        'increase_page': increase_page,
+        'pagination_range': paginator.page_range,
         'searchForm': searchForm(),
     }
     return render(request, 'stock_analysis/increase.html', context)

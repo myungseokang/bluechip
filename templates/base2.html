@@ -38,8 +38,10 @@
                     <li style="color: #fff;padding-right: 10px;padding-left: 10px;">{{ request.user.nickname }}님 반갑습니다!</li>
                     <li style="border-left-style: solid;color: #fff;padding-right: 10px;padding-left: 10px;"><a style="padding: 0;border-left-style: solid;color: #fff;padding-left: 10px;" href="{% url 'logout' %}">로그아웃</a></li>
                 </ul>
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search..."> </form>
+                <form <form action="{% url 'stock:search' %}" method="POST" class="navbar-form navbar-right">
+                    {% csrf_token %}
+                    <input id='id_title' name='title'type="text" class="form-control" placeholder="검색">
+                </form>
             </div>
         </div>
     </nav>
