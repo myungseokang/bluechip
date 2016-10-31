@@ -45,8 +45,17 @@ def increase(request):
 
 def decrease(request):
     decrease_list = Stock.objects.filter(change__lt=0).order_by('change')
+    paginator = Paginator(decrease_list, 30)
+    page = request.GET.get('page', '')
+    try:
+        decrease_page = paginator.page(page)
+    except PageNotAnInteger:
+        decrease_page = paginator.page(1)
+    except EmptyPage:
+        decrease_page = paginator.page(paginator.num_pages)
     context = {
-        'decrease_list': decrease_list,
+        'decrease_page': decrease_page,
+        'pagination_range': paginator.page_range,
         'searchForm': searchForm(),
     }
     return render(request, 'stock_analysis/decrease.html', context)
