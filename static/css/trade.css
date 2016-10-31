@@ -1,0 +1,10 @@
+.disabled,
+.active {
+    cursor: default;
+    color: #222;
+}
+.disabled:hover,
+.active:hover {
+    text-decoration: none;
+    color: #222;
+}

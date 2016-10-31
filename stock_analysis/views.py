@@ -4,37 +4,40 @@ from stock.models import Stock
 from stock.forms import searchForm
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# Create your views here.
+
 
 def trade(request):
     trade_list = Stock.objects.all().order_by('-deal')
     paginator = Paginator(trade_list, 30)
 
-    page = request.GET.get('page')
+    page = request.GET.get('page', '')
     try:
-        trade_list = paginator.page(page)
+        trade_page = paginator.page(page)
     except PageNotAnInteger:
-        trade_list = paginator.page(1)
+        trade_page = paginator.page(1)
     except EmptyPage:
-        trade_list = paginator.page(paginator.num_pages)
+        trade_page = paginator.page(paginator.num_pages)
     context = {
-        'trade_list':trade_list,
-        'searchForm':searchForm(),
+        'trade_page': trade_page,
+        'pagination_range': paginator.page_range,
+        'searchForm': searchForm(),
     }
     return render(request, 'stock_analysis/trade.html', context)
+
 
 def increase(request):
     increase_list = Stock.objects.filter(change__gt=0).order_by('-change')
     context = {
-        'increase_list':increase_list,
-        'searchForm':searchForm(),
+        'increase_list': increase_list,
+        'searchForm': searchForm(),
     }
     return render(request, 'stock_analysis/increase.html', context)
+
 
 def decrease(request):
     decrease_list = Stock.objects.filter(change__lt=0).order_by('change')
     context = {
-        'decrease_list':decrease_list,
-        'searchForm':searchForm(),
+        'decrease_list': decrease_list,
+        'searchForm': searchForm(),
     }
     return render(request, 'stock_analysis/decrease.html', context)

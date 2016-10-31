@@ -1,14 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Stock Trade{% endblock %}
 
+{% block stylesheet %}
+    <link href="{% static 'css/trade.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
-  <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
-  <h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
-  {% for stock in trade_list %}
-    {{ forloop.counter }} {{ stock.title }} <br>
-  {% endfor %}
-  {% if trade_list.has_next %}
-      <a href="?page={{ trade_list.next_page_number }}">next</a>
-  {% endif %}
+    <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
+    <h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
+    {% for stock in trade_page.object_list %}
+        <span class="trade_number">{{ forloop.counter }}</span> <a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a> <br>
+    {% endfor %}
+    {% if trade_page.has_other_pages %}
+        <div class="pagination">
+            {% if trade_page.has_previous %}
+                <a href="?page={{ trade_page.previous_page_number }}">&laquo;</a>
+            {% else %}
+                <a class="disabled"><span>&laquo;</span></a>
+            {% endif %}
+            {% for page in trade_page.paginator.page_range %}
+                {% if trade_page.number == page %}
+                    <a class="active"><span>{{ page }} (current)</span></a>
+                {% else %}
+                    <a href="?page={{ page }}">{{ page }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if trade_page.has_next %}
+                <a href="?page={{ trade_page.next_page_number }}">&raquo;</a>
+            {% else %}
+                <a class="disabled"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock %}
