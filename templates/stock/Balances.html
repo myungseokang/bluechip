@@ -5,6 +5,21 @@
 {% block body %}
 <div class="container-fluid">
     <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'stock:main' %}">주식 <span class="sr-only">(current)</span></a></li>
+                <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+                <li class="active"><a href="{% url 'stock:Balances' %}">잔고 <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">순위</a></li>
+                <li><a href="#">대회공지</a></li>
+                <li><a href="#">튜토리얼</a></li>
+                <li><a href="#">용어사전</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+<div class="container-fluid">
+    <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
             <div class="row">
                 <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">

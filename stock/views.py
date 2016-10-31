@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .forms import searchForm, requestForm
-from .models import Stock, StockManager
+from .models import Stock, StockManager, InvestUser
 from django.db.models import Q
 
 
@@ -113,3 +113,14 @@ def balances(request):
         'stock_balances':stock_balances
     }
     return render(request, 'stock/Balances.html', context)
+
+def ranking(request):
+    InvestUse = InvestUser.objects.all()
+    users = []
+    for user in InvestUse:
+        user.total_money_reset()
+    top_ten = InvestUser.objects.all().order_by('-total_money')[:10]
+    context =  {
+        'top_ten':top_ten
+    }
+    return render(request, 'stock/ranking.html', context)

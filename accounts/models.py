@@ -10,6 +10,9 @@ class InvestUser(AbstractUser):
     """
     nickname = models.CharField("닉네임",max_length=100)
     money = models.IntegerField(default=100000)
+    total_money = models.IntegerField(default=0, help_text="보유 주식 가치 + money")
+    take_count = models.PositiveIntegerField(default=0, help_text="보유 주식의 수")
+
 
     def own_stock(self):
         flag_1 = self.stockmanager_set.filter(Q(request_flag=1,flag=1) | Q(request_flag=0, flag=1)).exclude(request_cancel=1)
@@ -41,3 +44,12 @@ class InvestUser(AbstractUser):
             stock.stock.stock_reset()
             stock.conclusion()
         return log
+
+    def total_money_reset(self):
+        stocks = self.stockmanager_set.filter(request_flag=1, flag=1)
+        self.total_money = self.money
+        self.take_count = 0
+        for stock in stocks:
+            self.total_money += stock.stock.price * stock.count
+            self.take_count += stock.count
+        self.save()

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import main, stock_detail, stock_search, balances, stock_request
+from .views import main, stock_detail, stock_search, balances, stock_request, ranking
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^search/$', stock_search, name='search'),
     url(r'^request/(?P<code>[A-Za-z-0-9]+)/$', stock_request, name="request"),
     url(r'^balances/$', balances, name="Balances"),
+    url(r'^ranking/$', ranking, name="ranking"),
 ]

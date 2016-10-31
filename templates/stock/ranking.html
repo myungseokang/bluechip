@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Stock main{% endblock %}
+
+{% block body %}
+  {% for user in top_ten %}
+    {{ user.nickname }} {{ user.money }} {{ user.take_count }} {{ user.total_money }}
+  {% endfor %}
+{% endblock %}
