@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'stock_analysis',
     'django_cron',
+    'tutorial',
+    'contest',
+    'term',
 ]
 
 CRON_CLASSES = [
