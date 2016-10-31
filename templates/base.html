@@ -48,7 +48,7 @@
 {% if request.user.is_authenticated %}
     <nav>
       <b><a href="{% url 'stock:main' %}">주식</a> | <a href="{% url 'stock_analysis:first' %}">주식 분석</a> | <a href="{% url 'stock:Balances' %}">잔고</a> |
-       <a href="{% url 'stock:ranking' %}">순위</a> | <a href="#">대회 공지</a> | <a href="#">튜토리얼</a> | <a href="#">용어 사전</a> <br></b>
+       <a href="{% url 'stock:ranking' %}">순위</a> | <a href="#">대회 공지</a> | <a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a> | <a href="#">용어 사전</a> <br></b>
     </nav>
 {% endif %}
     {% block body %}

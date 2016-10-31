@@ -25,10 +25,13 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
 
+    url(r'^$', Home),
     url(r'^home/$', Home, name='home'),
     url(r'^sign-up/$', Sign_up.as_view(), name='sign-up'),
 
     url(r'^stock/', include('stock.urls', namespace='stock')),
 
     url(r'^stock_analsis/', include('stock_analysis.urls', namespace="stock_analysis")),
+
+    url(r'^tutorial/', include('tutorial.urls', namespace="tutorial"))
 ]
