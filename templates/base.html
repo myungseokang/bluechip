@@ -7,6 +7,7 @@
     {% load static %}
     <link href="{% static 'Dashboard Template for Bootstrap_files/bootstrap-combined.min.css' %}" rel="stylesheet" id="bootstrap-css">
     <link href="{% static "Dashboard Template for Bootstrap_files/bootstrap.min.js" %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
         window.alert = function(){};
         var defaultCSS = document.getElementById('bootstrap-css');
@@ -53,6 +54,5 @@
     {% block body %}
     {% endblock %}
 </body>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 {% block javascript %}{% endblock %}
 </html>
