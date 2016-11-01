@@ -57,23 +57,20 @@
         <input type="submit" name="name" value="submit">
     </form>
 
-{% endblock %}
-
-{% block javascript %}
     <script>
-        function changeValue(val){
-            if(val==0){
-                {% for sell in sell_prices %}
-                    document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ sell }})
-                    document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ sell }}
-                {% endfor %}
-            }
-            else{
-                {% for buy in buy_prices %}
-                    document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ buy }})
-                    document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ buy }}
-                {% endfor %}
-            }
+    function changeValue(val){
+      if(val==0){
+        {% for sell in sell_prices %}
+          document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ sell }})
+          document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ sell }}
+          {% endfor %}
         }
+        else{
+          {% for buy in buy_prices %}
+            document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].setAttribute("value", {{ buy }})
+            document.getElementById("price").getElementsByTagName("option")[{{forloop.counter0}}].innerHTML={{ buy }}
+          {% endfor %}
+        }
+      }
     </script>
 {% endblock %}

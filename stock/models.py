@@ -126,11 +126,13 @@ class StockManager(models.Model):
         return '%s_%s' %(self.user.nickname, self.stock.title)
 
     def sell(self, request_price, count):
-        own_count = self.stock.about_stock(self.user)[0]
+        own_count,request_buy,request_sell = self.stock.about_stock(self.user)
         if (own_count-count<0):
             self.delete()
             return "매도량>보유 주식"
-        self.user_money = self.user.money
+        elif(own_count-count-request_sell<0):
+            self.delete()
+            return "매도량 + 매도 신청량 > 보유주식"
         self.request_flag = 0
         self.when_price = self.stock.price
         self.request_price = request_price
@@ -138,6 +140,21 @@ class StockManager(models.Model):
         self.total_price = request_price*count
         self.save()
         return 1
+
+
+    """
+    매도는 매도를 할 때 현재의 돈을 저장함
+    매수는 매수가 체결될 떄의 돈을 저장함
+    ex)
+    보유 금액 : 10000       매수 : 1000
+    체결 전: 9000
+    체결 후 : 9000
+
+    보유한 돈 : 9000  1개의 보유 주식 : 10000
+    체결 전 : 9000
+    체결 후 : 10000
+    """
+
 
     def buy(self, request_price, count):
         if(request_price==0):
@@ -159,7 +176,7 @@ class StockManager(models.Model):
 
     def buy_conclusion(self):
         if(self.flag==1):
-            return
+            return "이미 매도 체결이 되었습니다."
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
             self.flag = 1
         if((self.stock.price>self.request_price and self.when_price<self.request_price)):
@@ -170,15 +187,18 @@ class StockManager(models.Model):
 
     def sell_conclusion(self):
         if(self.flag==1):
-            return
+            return "이미 매수 체결이 되었습니다."
         if (self.stock.price==self.request_price or self.when_price==self.request_price):
             self.user.money += self.request_price*self.count
+            self.user_money = self.user.money
             self.flag = 1
         if((self.stock.price>self.request_price and self.when_price<self.request_price)):
             self.user.money += self.request_price*self.count
+            self.user_money = self.user.money
             self.flag = 1
         elif((self.stock.price<self.request_price and self.when_price>self.request_price)):
             self.user.money += self.request_price*self.count
+            self.user_money = self.user.money
             self.flag = 1
         self.save()
         self.user.save()

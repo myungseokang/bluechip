@@ -28,6 +28,7 @@ class InvestUser(AbstractUser):
             context = {
                 'title':i.stock.title,
                 'price':i.stock.price,
+                'code':i.stock.code,
                 'count':i.count,
                 'flag':i.flag,
                 'request_flag':i.request_flag

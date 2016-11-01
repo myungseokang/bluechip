@@ -16,14 +16,34 @@
                   <li><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
                   <li><a href="{% url 'term:term' %}">용어사전</a></li>
           </ul>
-        </div>
       </div>
     </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
             <div class="row">
                 <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                  <div class="blog-post" style="background-color: #fff;">
+                      <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">보유주식</span></h4>
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                            <th>종목 이름</th> <th>보유 개수</th> <th>현재가</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for own_stock in own_stocks %}
+                             <tr>
+                               <td><a href="{% url 'stock:stock_detail' own_stock.code %}">{{ own_stock.title }}</a></td>
+                               <td>{{ own_stock.count }}개</td>
+                               <td>{{ own_stock.price }}</td>
+                             </tr>
+                            {% endfor %}
+                          </tbody>
+                          </table>
+                  </div>
+                  <br>
                     <div class="blog-post" style="background-color: #fff;">
                         <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">통장잔액</span></h4>
                         <table class="table table-hover">
@@ -46,26 +66,8 @@
                           </tbody>
                         </table>
                     </div>
-                    <div class="blog-post" style="background-color: #fff;">
-                        <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">보유주식</span></h4>
-                          <table class="table table-hover">
-                            <thead>
-                              <tr>
-                              <th>종목 이름</th> <th>보유 개수</th> <th>현재가</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for own_stock in own_stocks %}
-                               <tr>
-                                 <td>{{ own_stock.title }}</td>
-                                 <td>{{ own_stock.count }}개</td>
-                                 <td>{{ own_stock.price }}</td>
-                               </tr>
-                              {% endfor %}
-                            </tbody>
-                            </table>
-                    </div>
                     <!-- /.blog-post -->
+                    <br>
                     <div class="blog-post" style="background-color: #fff;">
                         <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">체결현황</span></h4>
                           <table class="table table-hover">
