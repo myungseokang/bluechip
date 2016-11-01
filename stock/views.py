@@ -7,6 +7,7 @@ from .forms import searchForm, requestForm
 from .models import Stock, StockManager, InvestUser
 from django.db.models import Q
 
+import random
 
 def main(request):
     if(not request.user.is_authenticated):
@@ -31,6 +32,12 @@ def main(request):
         'stocks':stocks
     }
     return render(request, 'stock/main.html', context)
+
+def random_stock(request):
+    stocks = Stock.objects.all()
+    rand_num = random.randint(0, stocks.count())
+    stock = stocks[rand_num]
+    return HttpResponseRedirect(reverse('stock:stock_detail', args=(stock.code, )))
 
 def stock_detail(request, code):
     if(not request.user.is_authenticated):
