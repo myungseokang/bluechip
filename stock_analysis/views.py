@@ -42,7 +42,6 @@ def increase(request):
     }
     return render(request, 'stock_analysis/increase.html', context)
 
-
 def decrease(request):
     decrease_list = Stock.objects.filter(change__lt=0).order_by('change')
     paginator = Paginator(decrease_list, 30)
