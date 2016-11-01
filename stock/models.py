@@ -29,31 +29,37 @@ class Stock(models.Model):
     def __str__(self):
         return self.title
 
+    """
+    에러가 나면 종목이 망한것으로 판단 -> 레코드 삭제
+    """
     def stock_reset(self):
         url = "http://finance.daum.net/item/main.daum"
         html_doc = requests.get(url, params={'code':self.code})
         html = BeautifulSoup(html_doc.text, 'html.parser')
-        self.deal=int(html.find('ul',{'class':'list_stockrate'}).find_all('li')[4].span.text.replace(',', ''))
-        self.change=float(html.find('ul',{'class':'list_stockrate'}).find_all('li')[2].text.replace('％',''))
-        self.price=int(html.find('ul',{'class':'list_stockrate'}).li.em.text.replace(',', ''))
-        stock_html = html.find('div', {'id':'stockContent'}).find_all('dl')
-        for stock in stock_html:
-            name = stock.dt.text
-            quote = stock.dd.text.replace('\t', '').replace('\n', '').replace(',', '').replace('-','')
-            if (name=="전일"):
-                self.yesterday_price=int(quote)
-            elif(name=='고가'):
-                self.high_price=int(quote)
-            elif(name=='저가'):
-                self.low_price=int(quote)
-            elif(name=='시가'):
-                self.today_start_price=int(quote)
-            elif(name=='상한가'):
-                self.max_price=int(quote)
-            elif(name=='하한가'):
-                self.min_price=int(quote)
-                self.save()
-                break
+        try:
+            self.deal=int(html.find('ul',{'class':'list_stockrate'}).find_all('li')[4].span.text.replace(',', ''))
+            self.change=float(html.find('ul',{'class':'list_stockrate'}).find_all('li')[2].text.replace('％',''))
+            self.price=int(html.find('ul',{'class':'list_stockrate'}).li.em.text.replace(',', ''))
+            stock_html = html.find('div', {'id':'stockContent'}).find_all('dl')
+            for stock in stock_html:
+                name = stock.dt.text
+                quote = stock.dd.text.replace('\t', '').replace('\n', '').replace(',', '').replace('-','')
+                if (name=="전일"):
+                    self.yesterday_price=int(quote)
+                elif(name=='고가'):
+                    self.high_price=int(quote)
+                elif(name=='저가'):
+                    self.low_price=int(quote)
+                elif(name=='시가'):
+                    self.today_start_price=int(quote)
+                elif(name=='상한가'):
+                    self.max_price=int(quote)
+                elif(name=='하한가'):
+                    self.min_price=int(quote)
+                    self.save()
+                    break
+        except:
+            stock.delete()
 
     def graph_url(self):
         url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'
