@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from .views import Home, Sign_up
+
 from django.contrib.auth.views import logout
 
 urlpatterns = [
@@ -33,5 +34,9 @@ urlpatterns = [
 
     url(r'^stock_analsis/', include('stock_analysis.urls', namespace="stock_analysis")),
 
-    url(r'^tutorial/', include('tutorial.urls', namespace="tutorial"))
+    url(r'^tutorial/', include('tutorial.urls', namespace="tutorial")),
+
+    url(r'^contest/', include('contest.urls', namespace='contest')),
+
+    url(r'^term/', include('term.urls', namespace='term')),
 ]
