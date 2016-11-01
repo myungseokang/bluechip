@@ -21,10 +21,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
-          {% for term in terms %}
-            {{ term.term }} <br>
-          {% endfor %}
-       </div>
+          <div class="row">
+              <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                <div class="blog-post" style="background-color: #fff;">
+                  {% for term in terms %}
+                    {{ term.term }} <br>
+                    {{ term.mean }} <br> <br>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
 {% endblock %}
