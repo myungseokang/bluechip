@@ -24,7 +24,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
             <div class="row">
                 <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
-                  <div class="blog-post" style="background-color: #fff;">
+                  <div class="blog-post" style="background-color: #fff;" >
                       <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">보유주식</span></h4>
                         <table class="table table-hover">
                           <thead>
@@ -82,7 +82,7 @@
                                         <td>{{ log_stock.stock.title }}</td>
                                         {% if log_stock.request_flag %}<td>매수</td>{% else %}<td>매도</td>{% endif %}
                                         <td>{{ log_stock.request_price }}</td>
-                                        <td>{{ log_stock.count }}</td>
+                                        <td>{{ log_stock }}</td>
                                         <td>{{ log_stock.total_price }}</td>
                                         {% if log_stock.flag %}<td>체결</td>{% else %}<td>미체결</td>{% endif %}
                                         {% if not log_stock.flag %}

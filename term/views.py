@@ -8,4 +8,4 @@ def term(request):
     context = {
         'terms':terms
     }
-    return render(request, 'term/term.html', terms)
+    return render(request, 'term/term.html', context)
