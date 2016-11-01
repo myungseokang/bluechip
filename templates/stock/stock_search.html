@@ -40,11 +40,11 @@
                               <td><a href="{% url 'stock:stock_detail' stock.code %}">{{stock.title}}</a></td>
                               <td>{{ stock.price }}</td>
                               {% if stock.change > 0 %}
-                              <td><span class='red'>▲{{ stock.change }}%</span></td>
+                              <td><span class='red'>+{{ stock.change }}%</span></td>
                               {% elif stock.change < 0 %}
-                              <td><span class='blue'>▼{{ stock.change }}%</span></td>
+                              <td><span class='blue'>{{ stock.change }}%</span></td>
                               {% else %}
-                              <td><span>{{ stock.change }}</span></td>
+                              <td><span>{{ stock.change }}%</span></td>
                               {% endif %}
                             </tr>
                             {% endfor %}
