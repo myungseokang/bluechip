@@ -1,0 +1,67 @@
+[
+  {
+    "pk": 1,
+    "model": "term.term",
+    "fields": {
+      "term": "매도",
+      "mean": "보유주식을 정한 값으로 주식시장에 파는 것"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "term.term",
+    "fields": {
+      "term": "호가",
+      "mean": "신청가능한 금액을 목록으로 나타낸것"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "term.term",
+    "fields": {
+      "term": "매수",
+      "mean": "주식시장에서 신청한 값을 주고 주식을 사들이는 것"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "term.term",
+    "fields": {
+      "term": "고가",
+      "mean": "주식에서 오늘 하루 중 가장 높았던 현재가"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "term.term",
+    "fields": {
+      "term": "시가",
+      "mean": "주식시장이 시작됬을 때 주식의 가장 처음 현재가"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "term.term",
+    "fields": {
+      "term": "저가",
+      "mean": "주식에서 오늘 하루 중 가장 낮았던 현재가"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "term.term",
+    "fields": {
+      "term": "상한가",
+      "mean": "주식가격 중에서 최대로 올라갈 수 있는 가격"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "term.term",
+    "fields": {
+      "term": "하한가",
+      "mean": "주식가격 중에서 최대로 낮아질 수 있는 가격"
+    }
+  }
+]
+
