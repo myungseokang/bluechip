@@ -34,6 +34,8 @@ def main(request):
     return render(request, 'stock/main.html', context)
 
 def random_stock(request):
+    if(not request.user.is_authenticated):
+        return HttpResponseRedirect(reverse('home'))
     stocks = Stock.objects.all()
     rand_num = random.randint(0, stocks.count())
     stock = stocks[rand_num]
@@ -42,7 +44,6 @@ def random_stock(request):
 def stock_detail(request, code):
     if(not request.user.is_authenticated):
         return HttpResponseRedirect(reverse('home'))
-
     stock = Stock.objects.get(code=code)
     stock.stock_reset()
     buy_prices, sell_price = stock.asking_price()

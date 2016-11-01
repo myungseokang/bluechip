@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>그냥 만들어놈</title>
-  </head>
-  <body>
+{% extends 'base2.html' %}
 
-  </body>
-</html>
+{% block title %}튜토리얼{% endblock %}
+
+{% block body %}
+div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+                  <li><a href="{% url 'stock:main' %}">주식 <span class="sr-only">(current)</span></a></li>
+                  <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
+                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
+                  <li><a href="http://getbootstrap.com/examples/dashboard/">대회공지</a></li>
+                  <li><a href="http://getbootstrap.com/examples/dashboard/">뉴스</a></li>
+                  <li class="active"><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
+                  <li><a href="http://getbootstrap.com/examples/dashboard/">용어사전</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+{% endblock %}
