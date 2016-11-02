@@ -12,11 +12,26 @@
                   <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
                   <li><a href="{% url 'stock:ranking' %}">순위</a></li>
                   <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
-                  <li><a href="http://getbootstrap.com/examples/dashboard/">뉴스</a></li>
                   <li><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
                   <li  class="active"><a href="{% url 'term:term' %}">용어사전</a></li>
           </ul>
+      </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
+          <div class="row">
+              <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                <div class="blog-post" style="background-color: #fff;">
+                  {% for term in terms %}
+                    {{ term.term }} <br>
+                    {{ term.mean }} <br> <br>
+                  {% endfor %}
+              </div>
+          </div>
         </div>
       </div>
     </div>
+</div>
 {% endblock %}

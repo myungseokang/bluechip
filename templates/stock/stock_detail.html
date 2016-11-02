@@ -3,12 +3,48 @@
 {% block title %}Stock Detail{% endblock %}
 
 {% block body %}
+<!--
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+                  <li class="active"><a href="{% url 'stock:random_stock' %}">주식 <span class="sr-only">(current)</span></a></li>
+                  <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
+                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
+                  <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
+                  <li><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
+                  <li><a href="{% url 'term:term' %}">용어사전</a></li>
+          </ul>
+        </div>
+    </div>
+</div>
+-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
+          <div class="row">
+              <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                <div class="blog-post" style="background-color: #fff;">
+                  <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}</span></h4>
+                    <input type="checkbox" name="chkbox" value="chk1" onclick="check_only(this)">1일
+                    <input type="checkbox" name="chkbox" value="chk2" onclick="check_only(this)">1개월
+                    <input type="checkbox" name="chkbox" value="chk3" onclick="check_only(this)">3개월
+                    <input type="checkbox" name="chkbox" value="chk3" onclick="check_only(this)">1년
+                    <div id="graph_img" >
+                      <img src="{{ stock.today_graph }}" alt="" />
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
     {{ stock.title }} {{ stock.price }} {{ stock.change }}% <br>
     <img src="{{ stock.today_graph }}" alt="today_graph" /> <br>
     전일 : {{ stock.yesterday_price }} 고가 : {{ stock.high_price }} <br>
     시가 : {{ stock.today_start_price }} 저가 : {{ stock.low_price }} <br>
     상한가 : {{ stock.max_price }} 하한가 : {{ stock.min_price }}
-
     <br><br>
     <a href="#">매도/매수</a> <a href="#">차트</a> <a href="#">기업 정보</a>
     {% if messages %}
@@ -58,6 +94,7 @@
     </form>
 
     <script>
+    document.getElementsByName("chkbox")[0].checked = true;
     function changeValue(val){
       if(val==0){
         {% for sell in sell_prices %}
@@ -72,5 +109,27 @@
           {% endfor %}
         }
       }
+      function check_only(chk){
+        var obj = document.getElementsByName("chkbox");
+        for(var i=0; i<obj.length; i++){
+            if(obj[i] != chk){
+                obj[i].checked = false;
+            }
+            else{
+              if(i==0){
+                document.getElementById("graph_img").getElementsByTagName("img")[0].setAttribute("src", '{{ stock.today_graph }}')
+              }
+              else if(i==1){
+                  document.getElementById("graph_img").getElementsByTagName("img")[0].setAttribute("src", '{{ stock.month_graph }}')
+              }
+              else if(i==2){
+                document.getElementById("graph_img").getElementsByTagName("img")[0].setAttribute("src", '{{ stock.three_month_graph }}')
+              }
+              else{
+                document.getElementById("graph_img").getElementsByTagName("img")[0].setAttribute("src", '{{ stock.year_graph }}')
+              }
+            }
+        }
+    }
     </script>
 {% endblock %}

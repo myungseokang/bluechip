@@ -6,6 +6,8 @@ Invest House
 
 Sunrin Dicon 2016
 
+**using Heroku if you want to go [CLICK HERE](https://bluechip.herokuapp.com/)**
+
 ## 잔고
 표 : 보유주식, 통장잔고, 주문현황  
 
