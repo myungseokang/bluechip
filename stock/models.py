@@ -125,9 +125,29 @@ class StockManager(models.Model):
     def __str__(self):
         return '%s_%s' %(self.user.nickname, self.stock.title)
 
+        """
+        매도는 매도를 할 때 현재의 돈을 저장함
+        매수는 매수가 체결될 떄의 돈을 저장함
+        ex)
+        보유 금액 : 10000       매수 : 1000
+        체결 전: 9000
+        체결 후 : 9000
+
+        보유한 돈 : 9000  1개의 보유 주식 : 10000
+        체결 전 : 9000
+        체결 후 : 10000
+        """
+
+        """
+        매도, 매수에 대한 유효성 검사하는 조건문 생성
+        """
+
     def sell(self, request_price, count):
         own_count,request_buy,request_sell = self.stock.about_stock(self.user)
-        if (own_count-count<0):
+        if(request_price not in self.stock.asking_price()[1]):
+            self.delete()
+            return "hacking?"
+        elif (own_count-count<0):
             self.delete()
             return "매도량>보유 주식"
         elif(own_count-count-request_sell<0):
@@ -141,21 +161,6 @@ class StockManager(models.Model):
         self.save()
         return 1
 
-
-    """
-    매도는 매도를 할 때 현재의 돈을 저장함
-    매수는 매수가 체결될 떄의 돈을 저장함
-    ex)
-    보유 금액 : 10000       매수 : 1000
-    체결 전: 9000
-    체결 후 : 9000
-
-    보유한 돈 : 9000  1개의 보유 주식 : 10000
-    체결 전 : 9000
-    체결 후 : 10000
-    """
-
-
     def buy(self, request_price, count):
         if(request_price==0):
             self.delete()
@@ -163,6 +168,9 @@ class StockManager(models.Model):
         if (self.user.money-(int(request_price)*int(count))<0):
             self.delete()
             return 'your money : %d\nstock price : %d\nerror' %(self.user.money, int(request_price)*int(count))
+        if(request_price not in self.stock.asking_price()[0]):
+            self.delete()
+            return "hacking?"
         self.request_flag = 1
         self.when_price = self.stock.price
         self.request_price = request_price
