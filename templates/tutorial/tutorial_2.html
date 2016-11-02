@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<style>
+div.relative {
+    position: relative;
+    width: 600px;
+    height: 500px;
+}
+
+div#absolute1 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    width: 500px;
+    height: 100px;
+}
+    div#absolute2 {
+
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+        left: 480px;
+    width: 200px;
+    height: 100px;
+}
+     div#absolute3 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+    left: 20px;
+    height: 100px;
+}
+    a{
+        color: #000;
+    }
+    .btn{
+        margin-top: 10px;
+        padding: 10px;
+        width: 300px;
+        font-size: 25px;
+        border: none;
+        color: #fff;
+    }
+
+</style>
+</head>
+<body>
+
+
+<div class="relative">
+  {% load static %}
+  <img src="{% static '2.png' %}" style="height:500px; width:600px">
+
+  <div id="absolute1">
+    <div>다음 중 원하는 주식을 선택해보세요</div>
+    <div><button  class="btn">주식1</button></div>
+    <div><button class="btn">주식2</button></div>
+    <div><button class="btn">주식3</button></div>
+    <div><button  class="btn">주식4</button></div>
+    <div><button  class="btn">주식5</button></div>
+  </div>
+</div>
+
+  <div id="absolute2">
+    <a href="{% url 'tutorial:3' %}">></a>
+  </div>
+    <div id="absolute3">
+    <a href="{% url 'tutorial:1' %}"><</a>
+  </div>
+</body>
+</html>

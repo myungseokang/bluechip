@@ -1,21 +1,51 @@
-{% extends 'base2.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div.relative {
+    position: relative;
+    width: 600px;
+    height: 500px;
+}
 
-{% block title %}튜토리얼{% endblock %}
+div#absolute1 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+    left: 200px;
+    width: 200px;
+    height: 100px;
+}
+    div#absolute2 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+        left: 480px;
+    width: 200px;
+    height: 100px;
+}
+    a{
+        color: #000;
+    }
+</style>
+</head>
+<body>
 
-{% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-                  <li><a href="{% url 'stock:random_stock' %}">주식 <span class="sr-only">(current)</span></a></li>
-                  <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
-                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
-                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
-                  <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
-                  <li class="active"><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
-                  <li><a href="{% url 'term:term' %}">용어사전</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-{% endblock %}
+
+<div class="relative">
+  {% load static %}
+  <img src="{% static 'flthtmqnsflwha.png' %}" style="height:500px; width:600px">
+  <div id="absolute1">
+    <div>준영님</div>
+    <div>환영합니다</div>
+  </div>
+</div>
+
+  <div id="absolute2">
+    <a href="{% url 'tutorial:2' %}">></a>
+  </div>
+
+</body>
+</html>

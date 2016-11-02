@@ -1,0 +1,102 @@
+<html><head>
+    <meta charset="utf-8">
+<style>
+div.relative {
+    position: relative;
+    width: 600px;
+    height: 500px;
+}
+
+div#absolute1 {
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    width: 500px;
+    height: 100px;
+}
+    div#absolute2 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+        left: 480px;
+    width: 200px;
+    height: 100px;
+}
+     div#absolute3 {
+    font-size: 30px;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+    left: 20px;
+    height: 100px;
+}
+    a{
+        color: #000;
+    }
+    .btn{
+        padding: 10px
+    }
+     .btn{
+        margin-top: 10px;
+        padding: 10px;
+        width: 80px;
+        border: none;
+        color: #fff;
+    }
+
+</style>
+</head>
+<body>
+
+
+<div class="relative">
+  {% load static %}
+  <img src="{% static '2.png' %}" style="height:500px; width:600px">
+
+  <div id="absolute1">
+    <div style="
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 600;
+"><div>이제 원하는 주식을 팔아볼게요</div><div style="
+    margin-top: 10px;
+    font-size: 20px;
+">원하는 가격을 선택해주세요</div></div>
+        <div style="
+    text-align: left;
+    color: blue;
+">내 주식이름</div>
+    <table>
+      <tbody><tr>
+        <td style="
+    padding-right: 10px;
+">      <img src="http://blogs.ams.org/visualinsight/files/2016/06/small_stellated_dodecahedron.gif" style="
+    width: 370px;
+    height: 300px;
+">
+</td>
+        <td style="
+    border-width: 1px;
+    border-left-style: solid;
+    padding-left: 10px;
+"><div><button class="btn">가격1</button></div>
+      <div><button class="btn">가격2</button></div>
+      <div><button class="btn">가격3</button></div>
+          </td>
+        </tr>
+      </tbody></table>
+
+  </div>
+</div>
+
+  <div id="absolute2">
+    <a href="{% url 'tutorial:8' %}">&gt;</a>
+  </div>
+<div id="absolute3">
+    <a href="{% url 'tutorial:6' %}"><</a>
+  </div>
+
+
+</body></html>
