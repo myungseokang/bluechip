@@ -8,6 +8,21 @@
 {% endblock %}
 
 {% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+                  <li><a href="{% url 'stock:random_stock' %}">종목<span class="sr-only">(current)</span></a></li>
+                  <li class="active"><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
+                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
+                  <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
+                  <li><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
+                  <li><a href="{% url 'term:term' %}">용어사전</a></li>
+          </ul>
+        </div>
+    </div>
+</div>
     <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
     <h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
     {% for stock in trade_page.object_list %}

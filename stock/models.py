@@ -59,7 +59,7 @@ class Stock(models.Model):
                     self.save()
                     break
         except:
-            stock.delete()
+            self.delete()
 
     def graph_url(self):
         url = 'http://finance.daum.net/item/main.daum?nil_profile=vsearch&nil_src=stock'

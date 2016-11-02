@@ -7,12 +7,12 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-                  <li><a href="{% url 'stock:random_stock' %}">주식 <span class="sr-only">(current)</span></a></li>
+                  <li><a href="{% url 'stock:random_stock' %}">종목<span class="sr-only">(current)</span></a></li>
                   <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
                   <li class="active"><a href="{% url 'stock:Balances' %}">잔고</a></li>
                   <li><a href="{% url 'stock:ranking' %}">순위</a></li>
                   <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
-                  <li><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
+                  <li id="myBtn"><a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a></li>
                   <li><a href="{% url 'term:term' %}">용어사전</a></li>
           </ul>
       </div>
@@ -28,7 +28,7 @@
                         <table class="table table-hover">
                           <thead>
                             <tr>
-                            <th>종목 이름</th> <th>보유 개수</th> <th>현재가</th>
+                            <th>종목</th> <th>보유 개수</th> <th>현재가</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -48,7 +48,7 @@
                         <table class="table table-hover">
                           <thead>
                             <tr>
-                              <th>날짜</th> <th>형태</th> <th>주식이름</th> <th>매도/매수</th> <th>신청가</th> <th>신청개수</th>
+                              <th>날짜</th> <th>형태</th> <th>종목</th> <th>매도/매수</th> <th>신청가</th> <th>신청개수</th>
                               <th>신청총액</th><th>상태</th> <th>통장 잔액</th>
                             </tr>
                           </thead>
@@ -81,7 +81,7 @@
                                         <td>{{ log_stock.stock.title }}</td>
                                         {% if log_stock.request_flag %}<td>매수</td>{% else %}<td>매도</td>{% endif %}
                                         <td>{{ log_stock.request_price }}</td>
-                                        <td>{{ log_stock }}</td>
+                                        <td>{{ log_stock.count }}</td>
                                         <td>{{ log_stock.total_price }}</td>
                                         {% if log_stock.flag %}<td>체결</td>{% else %}<td>미체결</td>{% endif %}
                                         {% if not log_stock.flag %}
