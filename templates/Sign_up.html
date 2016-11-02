@@ -6,6 +6,7 @@
     <title></title>
     {% load static %}
     <link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <style>
     /*파일 분리할 것*/
     /*전체적용*/
@@ -42,7 +43,8 @@
                 <div class="card-header">
                     <p>Membership</p>
                 </div>
-                <form action="{% url 'sign-up' %}" method="POST">{% csrf_token %}
+                <form action="{% url 'sign-up' %}" method="POST">
+                  {% csrf_token %}
                     <div class="card-body">
                         <div class="UI">
                             <div class="UIInput">
