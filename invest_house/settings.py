@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'stock',
+    'accounts.apps.AccountsConfig',
+    'stock.apps.StockConfig',
     'django_extensions',
-    'stock_analysis',
+    'stock_analysis.apps.StockAnalysisConfig',
     'django_cron',
-    'tutorial',
-    'contest',
-    'term',
+    'tutorial.apps.TutorialConfig',
+    'contest.apps.ContestConfig',
+    'term.apps.TermConfig',
 ]
 
 CRON_CLASSES = [
