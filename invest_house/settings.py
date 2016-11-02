@@ -37,14 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'stock',
+    'accounts.apps.AccountsConfig',
+    'stock.apps.StockConfig',
     'django_extensions',
-    'stock_analysis',
+    'stock_analysis.apps.StockAnalysisConfig',
     'django_cron',
-    'tutorial',
-    'contest',
-    'term',
+    'tutorial.apps.TutorialConfig',
+    'contest.apps.ContestConfig',
+    'term.apps.TermConfig',
 ]
 
 CRON_CLASSES = [
@@ -145,7 +145,5 @@ AUTH_USER_MODEL = 'accounts.InvestUser'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
