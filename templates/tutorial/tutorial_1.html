@@ -38,7 +38,7 @@ div#absolute1 {
   {% load static %}
   <img src="{% static 'flthtmqnsflwha.png' %}" style="height:500px; width:600px">
   <div id="absolute1">
-    <div>준영님</div>
+    <div>{{ request.user.nickname }}님</div>
     <div>환영합니다</div>
   </div>
 </div>

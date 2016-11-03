@@ -59,19 +59,24 @@ div#absolute1 {
 
   <div id="absolute1">
     <div>다음 중 원하는 주식을 선택해보세요</div>
-    <div><button  class="btn">주식1</button></div>
-    <div><button class="btn">주식2</button></div>
-    <div><button class="btn">주식3</button></div>
-    <div><button  class="btn">주식4</button></div>
-    <div><button  class="btn">주식5</button></div>
+    <div><button  value="농촌치킨" class="btn" onclick="change(this.value)" >농촌치킨</button></div>
+    <div><button value="드러오래" class="btn" onclick="change(this.value)">드러오래</button></div>
+    <div><button value="투할머니보쌈" class="btn" onclick="change(this.value)">투할머니보쌈</button></div>
+    <div><button  value="가나피자" class="btn" onclick="change(this.value)">가나피자</button></div>
+    <div><button  value="맛나피자" class="btn" onclick="change(this.value)">맛나피자</button></div>
   </div>
 </div>
 
   <div id="absolute2">
-    <a href="{% url 'tutorial:3' %}">></a>
+    <a href="{% url 'tutorial:3' '농촌치킨' %}">></a>
   </div>
     <div id="absolute3">
     <a href="{% url 'tutorial:1' %}"><</a>
   </div>
+  <script type="text/javascript">
+    function change(val){
+      document.getElementById("absolute2").getElementsByTagName("a")[0].setAttribute("href", "/tutorial/3/"+val+"/")
+    }
+  </script>
 </body>
 </html>

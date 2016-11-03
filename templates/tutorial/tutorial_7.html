@@ -67,23 +67,19 @@ div#absolute1 {
         <div style="
     text-align: left;
     color: blue;
-">내 주식이름</div>
+">{{ stock }}</div>
     <table>
       <tbody><tr>
         <td style="
     padding-right: 10px;
-">      <img src="http://blogs.ams.org/visualinsight/files/2016/06/small_stellated_dodecahedron.gif" style="
+">      <img src="{% static 'tutorialchart2.png' %}" style="
     width: 370px;
     height: 300px;
 ">
 </td>
-        <td style="
-    border-width: 1px;
-    border-left-style: solid;
-    padding-left: 10px;
-"><div><button class="btn">가격1</button></div>
-      <div><button class="btn">가격2</button></div>
-      <div><button class="btn">가격3</button></div>
+      <td><div><button value="170000" class="btn" onclick="change(this.value)">170000</button></div>
+      <div><button value="180000" class="btn" onclick="change(this.value)">180000</button></div>
+      <div><button value="200000" class="btn" onclick="change(this.value)">200000</button></div>
           </td>
         </tr>
       </tbody></table>
@@ -92,11 +88,16 @@ div#absolute1 {
 </div>
 
   <div id="absolute2">
-    <a href="{% url 'tutorial:8' %}">&gt;</a>
+    <a href="{% url 'tutorial:8' stock price1  '170000' %}">&gt;</a>
   </div>
 <div id="absolute3">
-    <a href="{% url 'tutorial:6' %}"><</a>
+    <a href="{% url 'tutorial:6' stock  price1 %}"><</a>
   </div>
 
+  <script type="text/javascript">
+  function change(val){
+  document.getElementById("absolute2").getElementsByTagName("a")[0].setAttribute("href", "/tutorial/4/{{ stock }}/"+val+"/")
+  }
+  </script>
 
 </body></html>
