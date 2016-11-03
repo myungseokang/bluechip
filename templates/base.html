@@ -91,14 +91,14 @@
     {% if request.user.is_authenticated %}
     <form action="{% url 'stock:search' %}" method="POST" style="margin: 0px;float: right;">
       {% csrf_token %}
-      <input id='id_title' name='title'type="text" class="form-control" placeholder="검색" style="margin-top:60px;border-width: 1px;/* border: 1px; */width: 200px;background-color: #333FD3;border: none;border-bottom-style: solid;border-color: #fff;">
+      <input id='id_title' name='title' type="text" class="form-control" placeholder="검색" style="margin-top:60px;border-width: 1px;/* border: 1px; */width: 200px;background-color: #333FD3;border: none;border-bottom-style: solid;border-color: #fff;">
   </form>
   {% endif %}
 </div>
 {% if request.user.is_authenticated %}
 <nav style="text-align: center;margin-top: 20px;margin-bottom: 20px;font-size: 20px;">
   <b><a href="/stock/random_stock/" style="color: #000;">주식</a> | <a href="/stock_analsis/" style="color: #000;">주식 분석</a> | <a href="/stock/balances/" style="color: #000;">잔고</a> |
-   <a href="/stock/ranking/" style="color: #000;">순위</a> | <a href="/contest/" style="color: #000;">대회 공지</a> | <a id="myBtn" style="color: #000;">튜토리얼</a> | <a href="/term/" style="color: #000;">용어 사전</a> <br></b>
+   <a href="/stock/ranking/" style="color: #000;">순위</a> | <a href="/contest/" style="color: #000;">대회 공지</a> | <a id="myBtn" style="color: #000; cursor: pointer;">튜토리얼</a> | <a href="/term/" style="color: #000;">용어 사전</a> <br></b>
 </nav>
 {% endif %}
     {% block body %}
