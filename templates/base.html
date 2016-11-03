@@ -43,7 +43,7 @@
       /* Modal Content */
       .modal-content {
           background-color: #fefefe;
-          margin-left: 300px;
+          margin-left: 30%;
           padding: 20px;
           border: 1px solid #888;
           width: 650px;
@@ -64,15 +64,19 @@
     </style>
 </head>
 <body style="background-color:#F8F0ED">
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" style="margin-left: 0;display: none;">
   <!-- Modal content -->
-  <div class="modal-content" >
+  <div class="modal-content"  >
   <span class="close">×</span>
       <div style="box-shadow: none;background: none;border: none;">
           <iframe src="{% url 'tutorial:1' %}" style="border: none;width: 742px;height: 520px;"></iframe>
       </div>
    </div>
 </div>
+
+
+
+
   <div style="height: 120px;padding-bottom: 1px;background-color: #333FD3;color: #fff;padding-top: 10px;padding-left: 10px;padding-right: 10px;">
     {% if request.user.is_authenticated %}
     <div style="float: right;"> <span style="padding-right: 5px;">{{ request.user.nickname }}</span>

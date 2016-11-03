@@ -9,44 +9,149 @@
 
 {% block body %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-                  <li><a href="{% url 'stock:random_stock' %}">종목<span class="sr-only">(current)</span></a></li>
-                  <li class="active"><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
-                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
-                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
-                  <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
-                  <li id="myBtn"><a href="#">튜토리얼</a></li>
-                  <li><a href="{% url 'term:term' %}">용어사전</a></li>
-          </ul>
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar" style="
+    background-color: #3338D3;
+">
+<ul class="nav nav-sidebar">
+        <li class="active"><a href="{% url 'stock:random_stock' %}">종목<span class="sr-only">(current)</span></a></li>
+        <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+        <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
+        <li><a href="{% url 'stock:ranking' %}">순위</a></li>
+        <li><a href="{% url 'contest:contest' %}">대회공지</a></li>
+        <li id="myBtn"><a href="#">튜토리얼</a></li>
+        <li><a href="{% url 'term:term' %}">용어사전</a></li>
+</ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="
+    background-color: #F8F0ED;">
+                <div class="row">
+                    <div class="col-sm-8 blog-main" style="
+    width: 100%;
+    margin-bottom: 30px;
+">
+                        <div class="blog-post" style="
+    background-color: #fff;">
+                            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;margin: 0;">
+                                <div>
+
+                                    <nav style="
+    font-size: 20px;
+    margin-bottom: 25px;
+    ">
+          <b><a href="{% url 'stock_analysis:trade' %}" style="color: #000;">거래량</a> | <a href="{% url 'stock_analysis:increase' %}" style="color: #000;">상승</a> | <a href="{% url 'stock_analysis:decrease' %}" style="color: #000; ">하락</a>
+                                        <br>
+                                        </b>
+                                    </nav>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
+                                        <div class="blog-post" style="background-color: #fff;">
+                                            <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">거래량</span></h4>
+                                            <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>순위</th>
+      <th>종목</th>
+      <th>현재가</th>
+      <th>등락률</th>
+      <th>거래량</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stock in trade_page.object_list %}
+    <tr>
+      <th scope="row">{{ forloop.counter|add:add }}</th>
+      <td>{{ stock.title }}</td>
+      <td>{{ stock.price }}</td>
+      {% if stock.change > 0 %}
+        <td class="red" >+{{ stock.change }}%</td>
+      {% elif stock.change < 0 %}
+        <td class="blue" >{{ stock.change }}%</td>
+      {% else %}
+        <td>{{ stock.change }}</td>
+      {% endif %}
+      <td>{{ stock.deal }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+                                        </div>
+<nav aria-label="Page navigation">
+  {% if trade_page.has_other_pages %}
+      <ul class="pagination">
+          {% if trade_page.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ trade_page.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+              <li class="page-item"><a class="disabled page-link"><span>&laquo;</span></a></li>
+          {% endif %}
+          {% for page in trade_page.paginator.page_range %}
+              {% if trade_page.number == page %}
+                  <li class="page-item"><a class="active page-link"><span>{{ page }}</span></a></li>
+              {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if trade_page.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ trade_page.next_page_number }}">&raquo;</a></li>
+          {% else %}
+              <li class="page-item"><a class="page-link disabled"><span>&raquo;</span></a></li>
+          {% endif %}
+      </ul>
+  {% endif %}
+      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.blog-post -->
+                    </div>
+                    <!-- /.blog-main -->
+                    <!-- /.blog-sidebar -->
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;">
+                <div class="row">
+                    <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
+                        <div class="blog-post" style="background-color: #fff;">
+                            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;margin: 0;"> </div>
+                        </div>
+                        <!-- /.blog-post -->
+                    </div>
+                    <!-- /.blog-main -->
+                    <!-- /.blog-sidebar -->
+                </div>
+            </div>
         </div>
     </div>
-</div>
-    <h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
-    <h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
-    {% for stock in trade_page.object_list %}
-        <span class="trade_number">{{ forloop.counter }}</span> <a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a> <br>
-    {% endfor %}
-    {% if trade_page.has_other_pages %}
-        <div class="pagination">
-            {% if trade_page.has_previous %}
-                <a href="?page={{ trade_page.previous_page_number }}">&laquo;</a>
-            {% else %}
-                <a class="disabled"><span>&laquo;</span></a>
-            {% endif %}
-            {% for page in trade_page.paginator.page_range %}
-                {% if trade_page.number == page %}
-                    <a class="active"><span>{{ page }} (current)</span></a>
-                {% else %}
-                    <a href="?page={{ page }}">{{ page }}</a>
-                {% endif %}
-            {% endfor %}
-            {% if trade_page.has_next %}
-                <a href="?page={{ trade_page.next_page_number }}">&raquo;</a>
-            {% else %}
-                <a class="disabled"><span>&raquo;</span></a>
-            {% endif %}
-        </div>
-    {% endif %}
 {% endblock %}
+<!--
+<h3><a href="{% url 'stock_analysis:trade' %}">거래량</a></h3> <h3><a href="{% url 'stock_analysis:increase' %}">상승</a></h3>
+<h3><a href="{% url 'stock_analysis:decrease' %}">하락</a></h3>
+{% for stock in trade_page.object_list %}
+    <span class="trade_number">{{ forloop.counter }}</span> <a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a> <br>
+{% endfor %}
+{% if trade_page.has_other_pages %}
+    <div class="pagination">
+        {% if trade_page.has_previous %}
+            <a href="?page={{ trade_page.previous_page_number }}">&laquo;</a>
+        {% else %}
+            <a class="disabled"><span>&laquo;</span></a>
+        {% endif %}
+        {% for page in trade_page.paginator.page_range %}
+            {% if trade_page.number == page %}
+                <a class="active"><span>{{ page }} (current)</span></a>
+            {% else %}
+                <a href="?page={{ page }}">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if trade_page.has_next %}
+            <a href="?page={{ trade_page.next_page_number }}">&raquo;</a>
+        {% else %}
+            <a class="disabled"><span>&raquo;</span></a>
+        {% endif %}
+    </div>
+{% endif %}
+-->
