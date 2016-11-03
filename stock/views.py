@@ -46,18 +46,29 @@ def stock_detail(request, code):
         return HttpResponseRedirect(reverse('home'))
     stock = Stock.objects.get(code=code)
     stock.stock_reset()
+    context = {
+        'stock': stock,
+        'searchForm':searchForm()
+    }
+    return render(request, 'stock/stock_detail.html', context)
+
+def buy_sell(request, code):
+    if(not request.user.is_authenticated):
+        return HttpResponseRedirect(reverse('home'))
+    stock = Stock.objects.get(code=code)
+    stock.stock_reset()
     buy_prices, sell_price = stock.asking_price()
     own_count, request_buy,request_sell=stock.about_stock(request.user)
     context = {
-        'stock': stock,
+        'stock':stock,
         'buy_prices': buy_prices,
         'sell_prices': sell_price,
         'own_count' : own_count,
         'request_buy': request_buy,
         'request_sell': request_sell,
-        'searchForm':searchForm()
+        'searchForm':searchForm(),
     }
-    return render(request, 'stock/stock_detail.html', context)
+    return render(request, 'stock/stock_buy_sell.html', context)
 
 
 def stock_search(request):
@@ -123,6 +134,8 @@ def balances(request):
     return render(request, 'stock/Balances.html', context)
 
 def ranking(request):
+    if(not request.user.is_authenticated):
+        return HttpResponseRedirect(reverse('home'))
     InvestUse = InvestUser.objects.all()
     users = []
     for user in InvestUse:

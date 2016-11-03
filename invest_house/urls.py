@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import Home, Sign_up
+from .views import Home, Sign_up, mypage,exit
 
 from django.contrib.auth.views import logout
 
@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^$', Home),
     url(r'^home/$', Home, name='home'),
     url(r'^sign-up/$', Sign_up.as_view(), name='sign-up'),
+    url(r'^mypage/$', mypage, name='mypage'),
+    url(r'^exit-exit_exit/$', exit, name='exit'),
 
     url(r'^stock/', include('stock.urls', namespace='stock')),
 

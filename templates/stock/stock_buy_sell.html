@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
                       <div>
-                          <nav style="font-size: 20px;margin-bottom: 25px;  margin-left:37px;">
+                          <nav style="font-size: 20px;margin-bottom: 25px; margin-left:37px;">
                               <b><a href="{% url 'stock:stock_detail' stock.code %}" style="color: #000;">현재가</a> | <a href="{% url 'stock:buy_sell' stock.code %}" style="color: #000;">매도/매수</a>
                               <br>
                               </b>
@@ -132,37 +132,46 @@
 <div class="row">
   <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
       <div class="blog-post" style="background-color: #fff;">
-          <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">가격정보</span></h4>
+          <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}의 체결 정보</span></h4>
           <table class="table table-hover">
              <thead>
-                <tr><th></th><th></th><th></th><th></th></tr>
+                <tr><th>보유 주식</th><th>매수 신청</th><th>매도 신청</th></tr>
              </thead>
               <tr>
-                <td>전일</td>
-                <td>{{ stock.yesterday_price }}</td>
-                    <td>시가</td>
-                    <td>{{ stock.today_start_price }}</td>
+                <td>{{ own_count }}개</td>
+                <td>{{ request_buy }}개</td>
+                <td>{{ request_sell }}개</td>
               </tr>
-              <tr>
-                 <td>고가</td>
-                  <td>{{ stock.high_price }}</td>
-                <td>저가</td>
-              <td>{{ stock.low_price }}</td>
-          </tr>
-
-            <tr>
-              <td>상한가</td>
-              <td>{{ stock.max_price }}</td>
-              <td>하한가</td>
-              <td>{{ stock.min_price }}</td>
-            </tr>
           </table>
         </div>
+        <div class="blog-post" style="background-color: #fff;">
+            <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">호가</span></h4>
+            <table class="table table-hover">
+               <thead>
+                  <tr><th>매도 호가</th></tr>
+               </thead>
+               {% for price in sell_prices %}
+                <tr>
+                  <td>{{ price }}</td>
+                </tr>
+               {% endfor %}
+            </table>
+            <table class="table table-hover">
+               <thead>
+                  <tr><th>매도 호가</th></tr>
+               </thead>
+               {% for price in sell_prices %}
+                <tr>
+                  <td>{{ price }}</td>
+                </tr>
+               {% endfor %}
+            </table>
+          </div>
       </div>
     </div>
   </div>
 </div>
-                        <!-- /.blog-post -->
+                    <!-- /.blog-post -->
                     </div>
                     <!-- /.blog-main -->
                     <!-- /.blog-sidebar -->

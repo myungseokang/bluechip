@@ -1,6 +1,6 @@
 {% extends 'base2.html' %}
 
-{% block title %}Stock Search{% endblock %}
+{% block title %}마이페이지{% endblock %}
 
 {% block body %}
 {% load  static %}
@@ -106,31 +106,29 @@
             <div class="row">
                 <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
                   <div class="blog-post" style="background-color: #fff;">
-                      <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">보유주식</span></h4>
-                        <table class="table table-hover">
-                          <thead>
-                              <tr>
-                                  <th>종목</th>
-                                  <th>현재가</th>
-                                  <th>등락률</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                            {% for stock in stocks%}
+                      <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">자산</span></h4>
+                      <table class="table table-hover">
+                        <thead>
                             <tr>
-                              <td><a href="{% url 'stock:stock_detail' stock.code %}">{{stock.title}}</a></td>
-                              <td>{{ stock.price }}</td>
-                              {% if stock.change > 0 %}
-                              <td><span class='red'>+{{ stock.change }}%</span></td>
-                              {% elif stock.change < 0 %}
-                              <td><span class='blue'>{{ stock.change }}%</span></td>
-                              {% else %}
-                              <td><span>{{ stock.change }}%</span></td>
-                              {% endif %}
+                                <th>아이디</th>
+                                <th>닉네임</th>
+                                <th>통장잔액</th>
+                                <th>보유 주식 가치</th>
+                                <th>총자산</th>
                             </tr>
-                            {% endfor %}
-                          </tbody>
-                          </table>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ request.user.username }}</td> <td>{{ request.user.nickname }}</td>
+                            <td>{{ request.user.money }}</td> <td>{{ request.user.take_price }}</td> <td>{{ request.user.total_money }}</td>
+                          </tr>
+                        </tbody>
+                        </table>
+                  </div>
+                  <div>
+                    <img src="{% static 'pasan.png' %}" alt="" />
+                    <span>파산 신청을 하면 모든 주식이 사라지고 통장잔액이 100000원이 됩니다.</span> <br>
+                    <a href="{% url 'exit' %}" style="text-decoration:none; color:black;" ><b>파산 신청!(경고 없이 바로 파산됩니다!)</b></a>
                   </div>
               </div>
            </div>

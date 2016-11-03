@@ -55,3 +55,10 @@ class InvestUser(AbstractUser):
         self.take_price = self.total_money
         self.total_money += self.money
         self.save()
+
+    def user_reset(self):
+        self.money = 100000
+        self.take_price = 0
+        self.take_count = 0
+        self.total_money = 0
+        self.save()

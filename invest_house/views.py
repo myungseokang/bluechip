@@ -23,3 +23,13 @@ class Sign_up(CreateView):
             return HttpResponseRedirect(reverse('stock:main'))
         else:
             return render(request, 'Sign_up.html', {'form': Sing_upForm})
+
+def mypage(request):
+    if(not request.user.is_authenticated):
+        return HttpResponseRedirect(reverse('home'))
+    return render(request, 'mypage.html')
+
+def exit(request):
+    request.user.stockmanager_set.all().delete()
+    request.user.user_reset()
+    return HttpResponseRedirect(reverse('stock:main'))
