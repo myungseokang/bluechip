@@ -5,11 +5,17 @@
     <meta charset="utf-8">
     <title></title>
     {% load static %}
-    <link rel="stylesheet" href="{% static "css/signUp.css" %}" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <style>
     /*파일 분리할 것*/
     /*전체적용*/
+    html {
+        background: url({% static 'loginBg.png' %}) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
     body {
         margin: 0;
     }
@@ -27,6 +33,75 @@
     nav {
        width: 470px;
        margin: 0 auto
+    }
+    .container{
+
+    }
+    /*이 문서만 적용*/
+
+    .login-card-container{
+       position: relative;
+    margin-top: 70px;
+    margin-right: 70px;
+    width: 600px;
+    height: 400px;
+    text-align: center;
+    float: right;
+    left: 0;
+
+    }
+    .login-card {
+        margin-left: 10%;
+        margin-right: 10%;
+        width: 500px;
+    }
+
+    .card-header {
+        font-size: 40px;
+    }
+
+    .UIInput {
+        height: 20px;
+        float: left;
+    }
+
+    .login-icon {
+        width: 15px;
+        margin: 0;
+    }
+
+    .login-line {
+        border-width: 0.5px;
+        border-style: solid;
+    }
+    .UI{
+        margin-top: 30px;
+    }
+    .UIInput-input {
+        background-color: rgba(0, 0, 0, 0);
+        height: 100%;
+        margin-left: 10px;
+        border: none;
+        width: 450px;
+        font-size: 15px;
+        line-height: 10%;
+    }
+
+    *:focus {
+        outline: none;
+    }
+    #movetoM{
+        float: right;
+        font-size: 15px;
+    }
+    .login-btn {
+        margin-top: 70px;
+        font-size: 20px;
+        color: #fff;
+        background-color: #CECECE;
+        width: 100%;
+        border: none;
+        padding: 10px;
     }
 </style>
   </head>
@@ -53,55 +128,59 @@
          <a href="{% url 'stock:ranking' %}">순위</a> | <a href="{% url 'contest:contest' %}">대회 공지</a> | <a href="{% url 'tutorial:tutorial_1' %}">튜토리얼</a> | <a href="{% url 'term:term' %}">용어 사전</a> <br></b>
       </nav>
   {% endif %}
-    <div class="container">
-        <!--    로그인 카드-->
-        <div class="login-card-container">
-            <div class="login-card">
-                <div class="card-header">
-                    <p>Membership</p>
-                </div>
-                <form action="{% url 'sign-up' %}" method="POST">
-                  {% csrf_token %}
-                    <div class="card-body">
-                        <div class="UI">
-                            <div class="UIInput">
-                                <img src="{% static 'nickname.png' %}" class="login-icon">
-                                {{ form.nickname }}
-                            </div>
-                            <br>
-                            <hr class="login-line">
-                        </div>
-                        <div class="UI">
-                            <div class="UIInput">
-                                <img src="{% static 'id.png' %}" class="login-icon">
-                                {{ form.username }}
-                            </div>
-                            <br>
-                            <hr class="login-line">
-                        </div>
-                        <div class="UI">
-                            <div class="UIInput">
-                                <img src="{% static 'lock.png' %}" class="login-icon">
-                                {{ form.password1 }}
-                            </div>
-                            <br>
-                            <hr class="login-line">
-                        </div>
-                        <div class="UI">
-                            <div class="UIInput">
-                                <img src="{% static 'lock.png' %}" class="login-icon">
-                                {{ form.password2 }}
-                            </div>
-                            <br>
-                            <hr class="login-line">
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" class="login-btn" value="회원가입" />
-                    </div>
-                </form>
-            </div></div>
+  <div class="container">
+  <!--    로그인 카드-->
+      <div class="login-card-container">
+                      <img src="{% static 'login600400.png' %}" style="height: 520px;right: 0px;position: absolute;z-index: -1;width: 100%;">
+
+      <div class="login-card">
+          <div class="card-header">
+              <p>Membership</p>
+          </div>
+          <div class="card-body">
+            <form class="" action="{% url 'sign-up' %}" method="post">
+              {% csrf_token %}
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'id.png' %}" class="login-icon">
+                      <input name="username" spellcheck="false" autocorrect="off" placeholder="아이디" class="UIInput-input" type="text">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'nickname.png' %}" class="login-icon">
+                      <input name="nickname" spellcheck="false" autocorrect="off" placeholder="닉네임" class="UIInput-input" type="text">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'lock.png' %}" class="login-icon">
+                      <input name="password1" spellcheck="false" autocorrect="off" placeholder="비밀번호" class="UIInput-input"type="password">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+              <div class="UI">
+                  <div class="UIInput">
+                      <img src="{% static 'lock.png' %}" class="login-icon">
+                      <input name="password2" spellcheck="false" autocorrect="off" placeholder="비밀번호 확인" class="UIInput-input" type="password">
+                  </div>
+                  <br>
+                  <hr class="login-line">
+              </div>
+          </div>
+          <div class="card-footer">
+              <input class="login-btn" type="submit" name="name" value="회원가입" />
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
   </body>
   <script>
       $(document).ready(function(){
