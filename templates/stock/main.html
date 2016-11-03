@@ -1,17 +1,67 @@
-{% extends 'base.html' %}
+<html lang="kr"><head>
+    <meta charset="UTF-8">
+    <title>Stock main</title>
 
-{% block title %}Stock main{% endblock %}
+    <link href="/static/Dashboard Template for Bootstrap_files/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="/static/Dashboard Template for Bootstrap_files/bootstrap.min.js" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />');
+            else $('head > link').filter(':first').replaceWith(defaultCSS);
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height());
+          window.parent.postMessage( iframe_height, 'http://bootsnipp.com');
+        });
+    </script>
+    <style media="screen">
+      .red {
+        color: #d40400;
+      }
+      .blue {
+        color: #005dde;
+      }
+    </style>
+</head>
+<body style="background-color:#F8F0ED">
+  <div style="height: 120px;padding-bottom: 1px;background-color: #333FD3;color: #fff;padding-top: 10px;padding-left: 10px;padding-right: 10px;">
 
-{% block body %}
-<div id="content" class="row-fluid" >
-<div class="span2 sidebar" >
+    <div style="float: right;"> <span style="padding-right: 5px;"></span>
+      <span style="padding-left: 10px;border-left-style: solid;border-width: 1px;"><a href="/accounts/logout/" style="color:white;">로그아웃</a></span>
+    </div>
+
+    <div style="position: relative;text-align: center;font-size: 60px;margin-top: 20px;">
+      <a href="/stock/main/"><img src="/static/logo.png" style="top: -8px;bottom: 0px;position: absolute;height: 100px;width: 215px;E/* left: 1px; */"></a>
+    Blue chip </div>
+
+    <form action="/stock/search/" method="POST" style="margin: 0px;float: right;">
+      <input type="hidden" name="csrfmiddlewaretoken" value="2u6cQnADYvS8BXk72Blw6JuwNrHceN8fcViuGE7VQ4pevsEkgPKt1jSg8xSOfzNp">
+        <input id="id_title" name="title" type="text" class="form-control" placeholder="검색" style="border-width: 1px;/* border: 1px; */width: 200px;background-color: #333FD3;border: none;border-bottom-style: solid;border-color: #fff;">
+  </form>
+
+</div>
+
+    <nav style="text-align: center;margin-top: 20px;margin-bottom: 20px;font-size: 20px;">
+      <b><a href="/stock/random_stock/" style="color: #000;">주식</a> | <a href="/stock_analsis/" style="color: #000;">주식 분석</a> | <a href="/stock/balances/" style="color: #000;">잔고</a> |
+       <a href="/stock/ranking/" style="color: #000;">순위</a> | <a href="/contest/" style="color: #000;">대회 공지</a> | <a href="/tutorial/one/" style="color: #000;">튜토리얼</a> | <a href="/term/" style="color: #000;">용어 사전</a> <br></b>
+    </nav>
+
+
+<div id="content" class="row-fluid" style="padding-left: 10%;padding-right:20px;">
+<div class="span2 sidebar" style="
+    /* margin-left: 63px; */
+">
     <ul class="nav nav-tabs nav-stacked" style="background-color: #fff;">
+
       {% for stock in stock_business %}
           <li><a href="?business={{ stock }}">{{ stock }}</a></li>
       {% endfor %}
     </ul>
   </div>
-  <div class="span8 main" style="background-color: #fff;">
+  <div class="span8 main" style="width: 50%;background-color: #fff;">
     <table class="table table-hover">
             <thead>
                 <tr>
@@ -37,4 +87,4 @@
             </tbody>
         </table>
   </div>
-{% endblock %}
+</div></body></html>
