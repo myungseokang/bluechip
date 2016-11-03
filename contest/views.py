@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from .models import Contest
 
-# Create your views here.
 
 def contest(request):
-    return render(request, 'contest/contest.html')
+    context = {
+        'contest_list': Contest.objects.all(),
+    }
+    return render(request, 'contest/contest.html', context)

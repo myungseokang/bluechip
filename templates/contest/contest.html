@@ -1,21 +1,51 @@
 {% extends 'base2.html' %}
+{% load static %}
 
-{% block title %}대회공지{% endblock %}\
+{% block title %}대회공지{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-                  <li><a href="{% url 'stock:random_stock' %}">종목<span class="sr-only">(current)</span></a></li>
-                  <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
-                  <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
-                  <li><a href="{% url 'stock:ranking' %}">순위</a></li>
-                  <li class="active"><a href="{% url 'contest:contest' %}">대회공지</a></li>
-                  <li id="myBtn"><a href="#">튜토리얼</a></li>
-                  <li><a href="{% url 'term:term' %}">용어사전</a></li>
-          </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="{% url 'stock:main' %}">주식</a></li>
+                    <li><a href="{% url 'stock_analysis:first' %}">주식분석</a></li>
+                    <li><a href="{% url 'stock:Balances' %}">잔고</a></li>
+                    <li><a href="{% url 'stock:ranking' %}">순위</a></li>
+                    <li class="active"><a href="{% url 'contest:contest' %}">대회공지 <span class="sr-only">(current)</span></a></li>
+                    <!--<li><a href="">뉴스</a></li>-->
+                    <li><a id="myBtn">튜토리얼</a></li>
+                    <li><a href="{% url 'term:term' %}">용어사전</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="
+    background-color: #F8F0ED;">
+                <div class="container m-t-md">
+                    <!-- First row -->
+                    <div class="row">
+                        {% for contest in contest_list %}
+                        <div class="col-xs-12 col-md-4">
+                            <!-- Card -->
+                            <article class="card animated fadeInLeft" style="
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+"> <img class="card-img-top img-responsive" src="{{ contest.image_url }}" alt="{{ contest.title }}" />
+                                <div class="card-block">
+                                    <h4 class="card-title">{{ contest.title }}</h4>
+                                    <p class="card-text">{{ contest.content }}</p>
+                                </div>
+                            </article>
+                            <!-- .end Card -->
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- .end First row -->
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+    <script>
+        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+    </script>
 {% endblock %}
