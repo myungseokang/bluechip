@@ -72,6 +72,14 @@ def decrease(request):
     page = request.GET.get('page', '')
 
     try:
+        if(int(page)==1):
+            add = 0
+        else:
+            add = int(page) * 100
+    except:
+        pass
+
+    try:
         decrease_page = paginator.page(page)
     except PageNotAnInteger:
         add = 0
@@ -83,6 +91,6 @@ def decrease(request):
         'trade_page': decrease_page,
         'pagination_range': paginator.page_range,
         'searchForm': searchForm(),
-        'add':add
+        'add':add,
     }
     return render(request, 'stock_analysis/decrease.html', context)
