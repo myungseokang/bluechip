@@ -65,13 +65,13 @@
 </head>
 <body style="background-color:#F8F0ED">
 <div id="myModal" class="modal">
-<!-- Modal content -->
-<div class="modal-content" >
+  <!-- Modal content -->
+  <div class="modal-content" >
   <span class="close">×</span>
       <div style="box-shadow: none;background: none;border: none;">
           <iframe src="{% url 'tutorial:1' %}" style="border: none;width: 742px;height: 520px;"></iframe>
       </div>
-  </div>
+   </div>
 </div>
   <div style="height: 120px;padding-bottom: 1px;background-color: #333FD3;color: #fff;padding-top: 10px;padding-left: 10px;padding-right: 10px;">
     {% if request.user.is_authenticated %}
@@ -80,7 +80,8 @@
     </div>
     {% endif %}
     <div style="position: relative;text-align: center;font-size: 60px;margin-top: 20px;">
-      <a href="{% url 'stock:main' %}"><img src="{% static 'logo2.png' %}" style="top: -8px;bottom: 0px;position: absolute;height: 100px;width: 215px;E/* left: 1px; */"></a>
+      <a href="{% url 'stock:main' %}"><img src="{% static 'logo.png' %}" style="top: -8px;bottom: 0px;position: absolute;height: 100px;width: 215px;E/* left: 1px; */"></a>
+      <span style="position:absolute; top:30px;">Blue Chip</span>
     </div>
     {% if request.user.is_authenticated %}
     <form action="{% url 'stock:search' %}" method="POST" style="margin: 0px;float: right;">
@@ -90,14 +91,9 @@
   {% endif %}
 </div>
 {% if request.user.is_authenticated %}
-<nav style="
-text-align: center;
-margin-top: 20px;
-margin-bottom: 20px;
-font-size: 20px;
-">
+<nav style="text-align: center;margin-top: 20px;margin-bottom: 20px;font-size: 20px;">
   <b><a href="/stock/random_stock/" style="color: #000;">주식</a> | <a href="/stock_analsis/" style="color: #000;">주식 분석</a> | <a href="/stock/balances/" style="color: #000;">잔고</a> |
-   <a href="/stock/ranking/" style="color: #000;">순위</a> | <a href="/contest/" style="color: #000;">대회 공지</a> | <a href="/tutorial/one/" style="color: #000;">튜토리얼</a> | <a href="/term/" style="color: #000;">용어 사전</a> <br></b>
+   <a href="/stock/ranking/" style="color: #000;">순위</a> | <a href="/contest/" style="color: #000;">대회 공지</a> | <a id="myBtn" style="color: #000;">튜토리얼</a> | <a href="/term/" style="color: #000;">용어 사전</a> <br></b>
 </nav>
 {% endif %}
     {% block body %}

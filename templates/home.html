@@ -39,7 +39,8 @@
       {% endif %}
       <div style="position: relative;text-align: center;font-size: 60px;margin-top: 20px;">
         <a href="{% url 'stock:main' %}"><img src="{% static 'logo.png' %}" style="top: -8px;bottom: 0px;position: absolute;height: 100px;width: 215px;E/* left: 1px; */"></a>
-      Blue chip </div>
+      <span style="position:absolute;">Blue Chip</span>
+    </div>
       {% if request.user.is_authenticated %}
       <form action="{% url 'stock:search' %}" method="POST" style="margin: 0px;float: right;">
         {% csrf_token %}
