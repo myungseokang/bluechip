@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
                       <div>
-                          <nav style="font-size: 20px;margin-bottom: 25px; margin-left:37px;">
+                          <nav style="font-size: 20px;margin-bottom: 25px; margin-left:15px;">
                               <b><a href="{% url 'stock:stock_detail' stock.code %}" style="color: #000;">현재가</a> | <a href="{% url 'stock:buy_sell' stock.code %}" style="color: #000;">매도/매수</a>
                               <br>
                               </b>
@@ -111,6 +111,9 @@
                       <div class="blog-post" style="background-color: #fff;">
                           <div class="col-sm-5 col-md-6" style="background-color: #F8F0ED;margin: 0;">
                               <div class="row">
+                                <table>
+                                <tr>
+                                <td>
                                   <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
                                     <div class="blog-post" style="background-color: #fff; width:350px;">
                                         <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}</span></h4>
@@ -132,11 +135,13 @@
                                           <div id="graph_img"> <img src="{{ stock.today_graph }}" alt=""><br><br></div>
                                         </div>
                                     </div>
-                                  </div>
-                                  <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0" style="width: 100%;margin-bottom: 30px;">
+                                  </div></td>
+                                  <td>
+                                  <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0" style="width: 150px;margin-bottom: 30px;">
                                       <div class="blog-post" style="background-color: #fff; width:350px;">
                                           <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">호가</span></h4>
-                                          <div class="row">
+                                          <div class="row" style="
+    margin-top: 35px;">
                                                                                 <div class="col-sm-5 col-md-6" style="width:150px; margin:0 ">
                                                                             <table class="table table-hover">
                                                                                 <thead>
@@ -166,18 +171,114 @@
 
                                                                             </table>
                                                                             </div></div>
-                          </div>
-                  </div>
-          </div>
-<div class="row">
-    </div>
+
+                                </div>
+                              </div></td></tr>
+
+                              <tr>
+                              <td>
+                                <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                                  <div class="blog-post" style="background-color: #fff; width:350px;">
+                                      <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}의 체결현황</span></h4>
+                                      <div class="row" style="
+                              margin-top: 35px;">
+                                                                            <div class="col-sm-5 col-md-6" style="
+    width: 100%;
+">
+                                                                        <table class="table table-hover">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>보유 주식 개수</th>
+                                                                                    <th>매수 신청수</th>
+                                                                                  <th>매도 신청수</th>
+                                                                                </tr>
+                                                                            </thead>
+
+                                                                            <tr>
+                                                                                <th>{{ own_count }}</th>
+                                                                                <th>{{ request_buy }}</th>
+                                                                                  <th>{{ request_sell }}</th>
+                                                                            </tr>
+
+
+                                                                        </table></div>
+
+                                                                          </div>
+
+                              </div>
+                                </div></td>
+                                <td>
+                                  <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
+                                    <div class="blog-post" style="background-color: #fff; width:350px;">
+                                        <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">주식 신청</span></h4>
+                                        <div class="row" style="
+                                margin-top: 35px;">
+                                                                              <div class="col-sm-5 col-md-6" style="
+      width: 100%;
+  ">
+                                                                          <table class="table table-hover">
+                                                                              <thead>
+                                                                                  <tr>
+                                                                                      <th>매도/매수</th>
+                                                                                      <th>신청가</th>
+                                                                                    <th>신청 개수</th>
+                                                                                    <th>요청</th>
+                                                                                  </tr>
+                                                                              </thead>
+                                                                              <form action="{% url 'stock:request' stock.code %}" method="POST">
+                                                                                  {% csrf_token %}
+                                                                              <tr>
+                                                                                  <td>
+                                                                                    <select name="request_flag" id="stock" onchange="changeValue(this.value)">
+                                                                                      <option value="0">매도
+                                                                                      <option value="1">매수
+                                                                                  </select>
+                                                                                </td>
+                                                                                  <td>
+                                                                                    <select id="price" name="request_price">
+                                                                                      {% for price in sell_prices %}
+                                                                                          <option value="{{price}}">{{price}}
+                                                                                      {% endfor %}
+                                                                                  </select>
+                                                                                </td>
+                                                                                    <td> <input type="number" name="count" value="1" min="1" max="100" step="1"></td>
+                                                                                    <td><input type="submit" name="name" value="요청" class="btn btn-primary"></td>
+                                                                              </tr>
+                                                                              </form>
+
+                                                                          </table></div>
+
+                                                                            </div>
+
+                                </div>
+                                  </div></td>
+                                <td>
+                                </td></tr>
+                            </table>
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
   </div>
 </div>
+
+
+
+
                     <!-- /.blog-post -->
                     </div>
                     <!-- /.blog-main -->
                     <!-- /.blog-sidebar -->
                 </div>
+
             </div>
 
             </div>

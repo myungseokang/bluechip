@@ -170,7 +170,7 @@
                                         <form action="{% url 'stock:Balances' %}" method="post">
                                           {% csrf_token %}
                                           <input type="hidden" name="stock" value="{{ log_stock.id }}">
-                                          <td><input type="submit" name="request_cancel" value="취소"></td>
+                                          <td><input type="submit" name="request_cancel" class="btn btn-primary" value="취소"></td>
                                         </form>
                                         {% else %}
                                          <td></td>
