@@ -16,14 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from .views import Home, Sign_up, mypage,exit, login
+from .views import Home, Sign_up, mypage,exit, setting_login
 
 from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'accounts/lgoun/$', login, name='login'),
+    url(r'accounts/lgoun/$', setting_login, name='login'),
     url(r'^accounts/logout/$', logout, {'next_page': '/home'}, name='logout'),
     url(r'^accounts/', include('django.contrib.auth.urls', namespace='auth')),
 

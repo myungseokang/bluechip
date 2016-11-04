@@ -36,7 +36,7 @@ def exit(request):
     request.user.user_reset()
     return HttpResponseRedirect(reverse('stock:main'))
 
-def login(request):
+def setting_login(request):
     if request.method == "POST":
         username =request.POST['username']
         password = request.POST['password']
