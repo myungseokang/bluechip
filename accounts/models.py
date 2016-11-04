@@ -60,5 +60,5 @@ class InvestUser(AbstractUser):
         self.money = 100000
         self.take_price = 0
         self.take_count = 0
-        self.total_money = 0
+        self.total_money = 100000
         self.save()
