@@ -13,10 +13,7 @@ def trade(request):
     page = request.GET.get('page', '')
 
     try:
-        if(int(page)==1):
-            add = 0
-        else:
-            add = int(page) * 100
+        add = (int(page)-1) * 100
     except:
         pass
 
@@ -26,7 +23,7 @@ def trade(request):
         add = 0
         trade_page = paginator.page(1)
     except EmptyPage:
-        add =  paginator.end_index() * 100
+        add =  (paginator.num_pages-1) * 100
         trade_page = paginator.page(paginator.num_pages)
     context = {
         'trade_page': trade_page,
@@ -43,10 +40,7 @@ def increase(request):
     page = request.GET.get('page', '')
 
     try:
-        if(int(page)==1):
-            add = 0
-        else:
-            add = int(page) * 100
+        add = (int(page)-1) * 100
     except:
         pass
 
@@ -56,7 +50,7 @@ def increase(request):
         add = 0
         increase_page = paginator.page(1)
     except EmptyPage:
-        add =  paginator.end_index() * 100
+        add = (paginator.num_pages-1) * 100
         increase_page = paginator.page(paginator.num_pages)
     context = {
         'trade_page': increase_page,
@@ -72,10 +66,7 @@ def decrease(request):
     page = request.GET.get('page', '')
 
     try:
-        if(int(page)==1):
-            add = 0
-        else:
-            add = int(page) * 100
+        add = (int(page)-1) * 100
     except:
         pass
 
@@ -85,7 +76,7 @@ def decrease(request):
         add = 0
         decrease_page = paginator.page(1)
     except EmptyPage:
-        add =  paginator.end_index() * 100
+        add =  (paginator.num_pages-1) * 100
         decrease_page = paginator.page(paginator.num_pages)
     context = {
         'trade_page': decrease_page,
