@@ -109,10 +109,10 @@
                           </nav>
                       </div>
                       <div class="blog-post" style="background-color: #fff;">
-                          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="background-color: #F8F0ED;margin: 0;">
+                          <div class="col-sm-5 col-md-6" style="background-color: #F8F0ED;margin: 0;">
                               <div class="row">
                                   <div class="col-sm-8 blog-main" style="margin-bottom: 30px;">
-                                    <div class="blog-post" style="background-color: #fff;">
+                                    <div class="blog-post" style="background-color: #fff; width:350px;">
                                         <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}</span></h4>
                                         {% if stock.change > 0 %}
                                           <span style="margin-left:12px; font-size:28px;color: #d40400; " >{{ stock.price }}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:20px;color: #d40400;">+{{ stock.change }}%</span> <br>
@@ -129,49 +129,47 @@
                                                 <span class="btn btn-primary" onclick="check_only(this)">1년</span>
                                           </div>
                                           <br><br>
-                                          <div id="graph_img"> <img src="{{ stock.today_graph }}" alt=""><br><br></div> </div>
+                                          <div id="graph_img"> <img src="{{ stock.today_graph }}" alt=""><br><br></div>
+                                        </div>
                                     </div>
                                   </div>
-                              </div>
-<div class="row">
-  <div class="col-sm-8 blog-main" style="width: 100%;margin-bottom: 30px;">
-      <div class="blog-post" style="background-color: #fff;">
-          <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">{{ stock.title }}의 체결 정보</span></h4>
-          <table class="table table-hover">
-             <thead>
-                <tr><th>보유 주식</th><th>매수 신청</th><th>매도 신청</th></tr>
-             </thead>
-              <tr>
-                <td>{{ own_count }}개</td>
-                <td>{{ request_buy }}개</td>
-                <td>{{ request_sell }}개</td>
-              </tr>
-          </table>
-        </div>
-        <div class="blog-post" style="background-color: #fff;">
-            <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">호가</span></h4>
-            <table class="table table-hover">
-               <thead>
-                  <tr><th>매도 호가</th></tr>
-               </thead>
-               {% for price in sell_prices %}
-                <tr>
-                  <td>{{ price }}</td>
-                </tr>
-               {% endfor %}
-            </table>
-            <table class="table table-hover">
-               <thead>
-                  <tr><th>매도 호가</th></tr>
-               </thead>
-               {% for price in sell_prices %}
-                <tr>
-                  <td>{{ price }}</td>
-                </tr>
-               {% endfor %}
-            </table>
+                                  <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0" style="width: 100%;margin-bottom: 30px;">
+                                      <div class="blog-post" style="background-color: #fff; width:350px;">
+                                          <h4 class="blog-post-title" style="background-color: #F8F0ED;"><span style="padding-right: 15px;padding-left: 15px;background-color: #fff;padding-top: 10px;padding-bottom: 10px;">호가</span></h4>
+                                          <div class="row">
+                                                                                <div class="col-sm-5 col-md-6" style="width:150px; margin:0 ">
+                                                                            <table class="table table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>매도 호가</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                {%  for sell in sell_prices %}
+                                                                                <tr>
+                                                                                    <th>{{ sell }}</th>
+                                                                                </tr>
+                                                                                {% endfor %}
+
+                                                                            </table></div>
+                                                                                 <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0" style="width:150px; margin:0;">
+                                                                            <table class="table table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>매수호가</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                {% for buy in buy_prices %}
+                                                                                <tr>
+                                                                                    <th>{{ buy }}</th>
+                                                                                </tr>
+                                                                                {% endfor %}
+
+                                                                            </table>
+                                                                            </div></div>
+                          </div>
+                  </div>
           </div>
-      </div>
+<div class="row">
     </div>
   </div>
 </div>
