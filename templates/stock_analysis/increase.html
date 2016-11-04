@@ -73,11 +73,11 @@
                   </a>
               </li>
 
-              <li>
+              <li id="myBtn">
                   <a href="#" style="border-bottom-style: solid;height: 40px;padding: 0;border-top-style: solid;border-color: rgba(255,255,255,0.3);border-width: 1px; height: 50px;color: #fff;">
                       <table style="height: 100%;">
                           <tbody>
-                              <tr id="myBtn">
+                              <tr>
                                   <td style="width: 40px;background-color: #2E31BB;"><img src="{% static 'tutorial.png' %}" style="margin-left: 7px;width: 25px;height: 25px;"></td>
                                   <td style="padding-left: 10px;">튜토리얼</td>
                               </tr>
@@ -138,7 +138,7 @@
       {% for stock in trade_page.object_list %}
       <tr>
         <th scope="row">{{ forloop.counter|add:add }}</th>
-        <td>{{ stock.title }}</td>
+        <td><a href="{% url 'stock:stock_detail' stock.code %}">{{ stock.title }}</a></td>
         <td>{{ stock.price }}</td>
         {% if stock.change > 0 %}
           <td class="red" >+{{ stock.change }}%</td>

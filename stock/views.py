@@ -140,8 +140,8 @@ def ranking(request):
     users = []
     for user in InvestUse:
         user.total_money_reset()
-    top_ten = InvestUser.objects.all().order_by('-total_money')[:10]
+    users = InvestUser.objects.all().order_by('-total_money')
     context =  {
-        'top_ten':top_ten
+        'users':users
     }
     return render(request, 'stock/ranking.html', context)
