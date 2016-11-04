@@ -3,34 +3,9 @@
     "pk": 1,
     "model": "contest.contest",
     "fields": {
-      "title": "대신증권 대회",
-      "image_url": "http://cfile1.uf.tistory.com/image/216ECF37529D1CCA0E93D0",
-      "content": "대회 내용입니다1"
+      "title": "삼성 증권 in NAVER 투자원정대",
+      "image_url": "https://www.samsungpop.com/ux/images/customer/invest_img_info.png",
+      "content": "2016.10.24~12.23 총 9주간 진행하는 모의투자 대회입니다"
     }
   },
-  {
-    "pk": 2,
-    "model": "contest.contest",
-    "fields": {
-      "title": "삼성 POP EYE 모의투자 대회",
-      "image_url": "http://img.mk.co.kr/stock/champ2/im_ssstock_main2.jpg",
-      "content": "대회 내용입니다2"
-    }
-  },{
-    "pk": 3,
-    "model": "contest.contest",
-    "fields": {
-      "title": "키움증권 대학생 주식 모의투자 대회",
-      "image_url": "http://gosuclub.com/data/cheditor4/1406/0625163e595748e9b728bd3f64aa4d13_mOUCRm7cfTieVqZEv.GIF",
-      "content": "대회 내용입니다3"
-    }
-  },{
-    "pk": 4,
-    "model": "contest.contest",
-    "fields": {
-      "title": "오름스톡 사이버 주식 모의투자 대회",
-      "image_url": "http://eorum.net/data/editor/1509/9d3431aa1e39b0c5dd2970ccaba8e5c2_1442310647_6346.jpg",
-      "content": "대회 내용입니다4"
-    }
-  }
 ]
