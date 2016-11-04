@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib import messages
 
 from django.views.generic.edit import FormView, CreateView
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
 
 from accounts.forms import Sing_upForm
 
@@ -33,3 +35,17 @@ def exit(request):
     request.user.stockmanager_set.all().delete()
     request.user.user_reset()
     return HttpResponseRedirect(reverse('stock:main'))
+
+def login(request):
+    if request.method == "POST":
+        username =request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('stock:main'))
+        else:
+            messages.add_message(request, messages.INFO, '로그인 실패')
+            return HttpResponseRedirect(reverse('home'))
+    else:
+        return HttpResponseRedirect(reverse('home'))

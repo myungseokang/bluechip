@@ -125,7 +125,7 @@
           <div class="card-header">
               <p>LOG IN</p>
           </div>
-          <form action="{% url 'auth:login' %}" method="POST">
+          <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
           <div class="card-body">
               <div class="UI">
@@ -158,5 +158,10 @@
           $("#id_username").attr('placeholder', '{{ form.username.label }}');
           $("#id_password").attr('placeholder', '{{ form.password.label }}');
       });
+      {% if messages %}
+    {% for message in messages %}
+      alert("{{ message }}");
+    {% endfor %}
+{% endif %}
   </script>
 </html>
