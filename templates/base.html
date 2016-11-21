@@ -89,7 +89,7 @@
     {% if request.user.is_authenticated %}
     <form action="{% url 'stock:search' %}" method="POST" style="margin: 0px;float: right;">
       {% csrf_token %}
-      <input id='id_title' name='title' type="text" class="form-control" placeholder="검색" style="margin-top:60px;border-width: 1px;/* border: 1px; */width: 200px;background-color: #333FD3;border: none;border-bottom-style: solid;border-color: #fff;">
+      <input id='id_title' name='title' type="text" class="form-control" placeholder="검색" style="color:#fff;margin-top:60px;border-width: 1px;/* border: 1px; */width: 200px;background-color: #333FD3;border: none;border-bottom-style: solid;border-color: #fff;">
   </form>
   {% endif %}
 </div>
